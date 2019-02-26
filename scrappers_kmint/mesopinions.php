@@ -4,7 +4,7 @@
 header('Content-type: text/html; charset=utf-8');
 
 $servername = "164.132.195.3";
-$username = "root";
+$username = "kmint";
 $password = "kmint123";
 $dbname = "kmint";
 
