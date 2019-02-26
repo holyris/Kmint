@@ -3,9 +3,9 @@
 <?php
 header('Content-type: text/html; charset=utf-8');
 
-$servername = "localhost";
+$servername = "164.132.195.3";
 $username = "root";
-$password = "";
+$password = "kmint123";
 $dbname = "kmint";
 
 // Create connection
