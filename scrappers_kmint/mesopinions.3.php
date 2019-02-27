@@ -3,7 +3,7 @@
 <?php
 header('Content-type: text/html; charset=utf-8');
 
-$servername = "164.132.195.3";
+$servername = "localhost";
 $username = "kmint";
 $password = "kmint123";
 $dbname = "kmint";
@@ -19,7 +19,6 @@ if (mysqli_connect_errno()) {
 
 
 
-printf("Jeu de caractère initial : %s\n", mysqli_character_set_name($conn));
 
 //  Modification du jeu de résultats en utf8 
 if (!mysqli_set_charset($conn, "utf8")) {
@@ -32,7 +31,7 @@ if (!mysqli_set_charset($conn, "utf8")) {
 /* 
 *   $i : numero de page
 */
-for($i = 1; $i < 2 ; $i++){
+for($i = 1; $i < 3 ; $i++){
     //  page où l'on scrap les données
     $codesource = file_get_contents("https://www.mesopinions.com/petition/page".$i);
 
@@ -79,6 +78,7 @@ for($i = 1; $i < 2 ; $i++){
             mysqli_stmt_execute($stmt);            
             mysqli_stmt_close($stmt);
             printf("Row inserted.\n");
+
         }
 
         $m++;        
