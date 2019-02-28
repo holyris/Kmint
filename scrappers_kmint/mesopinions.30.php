@@ -22,8 +22,6 @@ if (mysqli_connect_errno()) {
 if (!mysqli_set_charset($conn, "utf8")) {
     printf("Erreur lors du chargement du jeu de caractères utf8 : %s\n", mysqli_error($conn));
     exit();
-} else {
-    printf("Jeu de caractères courant : %s\n", mysqli_character_set_name($conn));
 }
 
 /* 
@@ -43,7 +41,7 @@ for($i = 1; $i < 30 ; $i++){
     preg_match_all("#<a class=\".+\" href=\"(.+)\" title=\".+\">#", $codesource, $tab_link[$i], PREG_SET_ORDER);
 
     //  scraping lien image
-    preg_match_all("#<img src=\"/public/img/((category|petition)/.*)\" alt=.+ #", $codesource, $tab_img[$i], PREG_SET_ORDER);
+    preg_match_all("#<img src=\"/public/img((category|petition)/.*)\" alt=.+ #", $codesource, $tab_img[$i], PREG_SET_ORDER);
 
     //  scraping auteur
     preg_match_all("#<span>Auteur : (.+)</span>#", $codesource, $tab_author[$i], PREG_SET_ORDER);
@@ -75,7 +73,6 @@ for($i = 1; $i < 30 ; $i++){
             mysqli_stmt_bind_param($stmt, "sssssss", $title, $description, $link, $img, $author, $signature, $categorie);
             mysqli_stmt_execute($stmt);            
             mysqli_stmt_close($stmt);
-            printf("Row inserted.\n");
         }
 
         $m++;        
