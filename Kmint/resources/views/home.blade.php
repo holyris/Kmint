@@ -8,13 +8,17 @@
                 <div class="card-header">Dashboard</div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
+                    @guest
+                    @if (Route::has('register'))
+                        <p>Feed par défaut</p>
                     @endif
-
-                    You are logged in!
+                    @else
+                        <p>
+                            Vous êtes connecté.e<br>
+                            Feed perso ici
+                        </p>
+                    @endguest
+                    
                 </div>
             </div>
         </div>

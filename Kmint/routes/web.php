@@ -12,42 +12,25 @@
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('home');
 });
 
-Route::get('/Connexion.php', function () {
-    return view('auth/login');
+Route::get('monCompte', function () {
+    return view('monCompte');
 });
 
-Route::get('/Connected.php', function () {
-    return view('Connected');
+Route::get('informationsPerso', function () {
+    return view('informationsPerso');
 });
 
-Route::get('/Favoris.php', function () {
-    return view('Favoris');
+Route::get('favoris', function () {
+    return view('favoris');
 });
 
-Route::get('/InformationsPerso.php', function () {
-    return view('InformationsPerso');
+Route::get('abonnements', function () {
+    return view('abonnements');
 });
 
-Route::get('/Inscription.php', function () {
-    return view('Inscription');
-});
-
-Route::resource('user', 'UserController');
-
-Route::get('/MdpOublie.php', function () {
-    return view('MdpOublie');
-});
-
-Route::get('/MonCompte.php', function () {
-    return view('MonCompte');
-});
-
-Route::get('/Abonnements.php', function () {
-    return view('Abonnements');
-});
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
