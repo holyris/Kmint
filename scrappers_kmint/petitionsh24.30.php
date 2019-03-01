@@ -4,16 +4,16 @@
 header('Content-type: text/html; charset=utf-8');
 
 //  Chez alexandre, a mettre en commentaire
-$servername = "164.132.195.3";
-$username = "thebault";
-$password = "thebault";
-$dbname = "kmint";
+// $servername = "164.132.195.3";
+// $username = "thebault";
+// $password = "thebault";
+// $dbname = "kmint";
 
 //  Pour le serveur, a mettre en commentaire
-// $servername = "localhost";
-// $username = "kmint";
-// $password = "kmint123";
-// $dbname = "kmint";
+$servername = "localhost";
+$username = "kmint";
+$password = "kmint123";
+$dbname = "kmint";
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
