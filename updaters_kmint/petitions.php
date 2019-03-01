@@ -1,4 +1,3 @@
-
 <?php
 header('Content-type: text/html; charset=utf-8');
 
@@ -72,13 +71,5 @@ if (mysqli_num_rows($liens) > 0) {
     }
 }
 
-
-
-
-
-
-
 mysqli_close($conn);
-
-
 ?>
