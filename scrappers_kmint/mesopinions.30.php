@@ -3,10 +3,17 @@
 <?php
 header('Content-type: text/html; charset=utf-8');
 
-$servername = "localhost";
-$username = "kmint";
-$password = "kmint123";
+//  Chez alexandre, a mettre en commentaire
+$servername = "164.132.195.3";
+$username = "thebault";
+$password = "thebault";
 $dbname = "kmint";
+
+//  Pour le serveur, a mettre en commentaire
+// $servername = "localhost";
+// $username = "kmint";
+// $password = "kmint123";
+// $dbname = "kmint";
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
@@ -41,7 +48,7 @@ for($i = 1; $i < 30 ; $i++){
     preg_match_all("#<a class=\".+\" href=\"(.+)\" title=\".+\">#", $codesource, $tab_link[$i], PREG_SET_ORDER);
 
     //  scraping lien image
-    preg_match_all("#<img src=\"/public/img((category|petition)/.*)\" alt=.+ #", $codesource, $tab_img[$i], PREG_SET_ORDER);
+    preg_match_all("#<img src=\"/public/img/((category|petition)/.*)\" alt=.+ #", $codesource, $tab_img[$i], PREG_SET_ORDER);
 
     //  scraping auteur
     preg_match_all("#<span>Auteur : (.+)</span>#", $codesource, $tab_author[$i], PREG_SET_ORDER);
@@ -67,10 +74,10 @@ for($i = 1; $i < 30 ; $i++){
         $author = $tab_author[$i][$j][1];
         $signature = $tab_signature[$i][$j][1];
         $categorie = $tab_categorie[$i][$j][1];
-        
-        if ($stmt = mysqli_prepare($conn, "INSERT INTO petition VALUES(?,?,?,?,?,?,?)")) {
+        $site = "mesopinions";
+        if ($stmt = mysqli_prepare($conn, "INSERT INTO petition VALUES(?,?,?,?,?,?,?,?, CURRENT_TIMESTAMP)")) {
 
-            mysqli_stmt_bind_param($stmt, "sssssss", $title, $description, $link, $img, $author, $signature, $categorie);
+            mysqli_stmt_bind_param($stmt, "ssssssss", $title, $description, $link, $img, $author, $signature, $categorie, $site);
             mysqli_stmt_execute($stmt);            
             mysqli_stmt_close($stmt);
         }

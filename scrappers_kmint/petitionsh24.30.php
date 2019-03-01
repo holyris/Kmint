@@ -3,10 +3,17 @@
 <?php
 header('Content-type: text/html; charset=utf-8');
 
-$servername = "localhost";
-$username = "kmint";
-$password = "kmint123";
+//  Chez alexandre, a mettre en commentaire
+$servername = "164.132.195.3";
+$username = "thebault";
+$password = "thebault";
 $dbname = "kmint";
+
+//  Pour le serveur, a mettre en commentaire
+// $servername = "localhost";
+// $username = "kmint";
+// $password = "kmint123";
+// $dbname = "kmint";
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
@@ -21,8 +28,6 @@ if (mysqli_connect_errno()) {
 if (!mysqli_set_charset($conn, "utf8")) {
     printf("Erreur lors du chargement du jeu de caractères utf8 : %s\n", mysqli_error($conn));
     exit();
-} else {
-    printf("Jeu de caractères courant : %s\n", mysqli_character_set_name($conn));
 }
 
 /* 
@@ -62,16 +67,13 @@ for($i = 1; $i < 30 ; $i++){
         $link = $tab_link[$i][$j][1];
         $img = "https://trybun.org.pl/wp-content/uploads/2017/08/petycje.online.jpg";  //les petitions n'ont pas d'images donc on remplace par le logo du site
         $signature = $tab_signature[$i][$j][1];
-        $null = NULL;
-        
+        $site = "petitions24";
+        $null = NULL;        
+        if ($stmt = mysqli_prepare($conn, "INSERT INTO petition VALUES(?,?,?,?,?,?,?,?, CURRENT_TIMESTAMP)")) {
 
-        
-        if ($stmt = mysqli_prepare($conn, "INSERT INTO petition VALUES(?,?,?,?,?,?,?)")) {
-
-            mysqli_stmt_bind_param($stmt, "sssssss", $title, $description, $link, $img, $null, $signature, $null);
+            mysqli_stmt_bind_param($stmt, "ssssssss", $title, $description, $link, $img, $null, $signature, $null,$site);
             mysqli_stmt_execute($stmt);            
             mysqli_stmt_close($stmt);
-            printf("Row inserted.\n");
         } else {
             printf("erreur d'insert \n");
         }

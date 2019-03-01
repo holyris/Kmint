@@ -3,10 +3,17 @@
 <?php
 header('Content-type: text/html; charset=utf-8');
 
-$servername = "localhost";
-$username = "kmint";
-$password = "kmint123";
+//  Chez alexandre, a mettre en commentaire
+$servername = "164.132.195.3";
+$username = "thebault";
+$password = "thebault";
 $dbname = "kmint";
+
+//  Pour le serveur, a mettre en commentaire
+// $servername = "localhost";
+// $username = "kmint";
+// $password = "kmint123";
+// $dbname = "kmint";
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
@@ -24,8 +31,6 @@ if (mysqli_connect_errno()) {
 if (!mysqli_set_charset($conn, "utf8")) {
     printf("Erreur lors du chargement du jeu de caractères utf8 : %s\n", mysqli_error($conn));
     exit();
-} else {
-    printf("Jeu de caractères courant : %s\n", mysqli_character_set_name($conn));
 }
 
 /* 
@@ -71,14 +76,12 @@ for($i = 1; $i < 3 ; $i++){
         $author = $tab_author[$i][$j][1];
         $signature = $tab_signature[$i][$j][1];
         $categorie = $tab_categorie[$i][$j][1];
-        
-        if ($stmt = mysqli_prepare($conn, "INSERT INTO petition VALUES(?,?,?,?,?,?,?)")) {
+        $site = "mesopinions";
+        if ($stmt = mysqli_prepare($conn, "INSERT INTO petition VALUES(?,?,?,?,?,?,?,?, CURRENT_TIMESTAMP)")) {
 
-            mysqli_stmt_bind_param($stmt, "sssssss", $title, $description, $link, $img, $author, $signature, $categorie);
+            mysqli_stmt_bind_param($stmt, "ssssssss", $title, $description, $link, $img, $author, $signature, $categorie, $site);
             mysqli_stmt_execute($stmt);            
             mysqli_stmt_close($stmt);
-            printf("Row inserted.\n");
-
         }
 
         $m++;        
