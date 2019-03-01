@@ -1,4 +1,3 @@
-<!-- Scraper php pour le site petitionsh24.net -->
 
 <?php
 header('Content-type: text/html; charset=utf-8');

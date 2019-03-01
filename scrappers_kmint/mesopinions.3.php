@@ -1,4 +1,3 @@
-<!-- Scraper php pour le site mesopinions.com -->
 
 <?php
 header('Content-type: text/html; charset=utf-8');
