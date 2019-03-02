@@ -43,19 +43,10 @@ for($i = 1; $i < 3 ; $i++){
 
     //  scraping lien
     preg_match_all("#<a title=.+ class=.+ data-petition_id=.+ href=\"(.+)\"> <span class=.+>.+</span></a>#", $codesource, $tab_link[$i], PREG_SET_ORDER);
-
-    // scraping auteur
-    // for($j = 0; $j < 50 ; $j++){
-
-    //     $codesource2 = file_get_contents("https://www.petitions24.net".$tab_link[$i][$j][1]);
-    //     preg_match_all("#<p style=.+><b>(.+)</b>#", $codesource2, $tab_author[$i], PREG_SET_ORDER);
-    // }
     
     // scraping nombre signature
     preg_match_all("#<td colspan=.+ style=.+>(.+)</td>#", $codesource, $tab_signature[$i], PREG_SET_ORDER);
     
-  
-
     /*
     *   $j : numéro de la petition sur la page
     */
@@ -66,12 +57,14 @@ for($i = 1; $i < 3 ; $i++){
         $img = "https://trybun.org.pl/wp-content/uploads/2017/08/petycje.online.jpg";  //les petitions n'ont pas d'images donc on remplace par le logo du site
         $signature = $tab_signature[$i][$j][1];
         $site = "petitions24";
-        $null = NULL;        
+        $null = NULL;
+        
         if ($stmt = mysqli_prepare($conn, "INSERT INTO petition VALUES(?,?,?,?,?,?,?,?, CURRENT_TIMESTAMP)")) {
 
-            mysqli_stmt_bind_param($stmt, "ssssssss", $title, $description, $link, $img, $null, $signature, $null,$site);
+            mysqli_stmt_bind_param($stmt, "ssssssss", $title, $description, $link, $img, $null, $signature, $null, $site);
             mysqli_stmt_execute($stmt);            
             mysqli_stmt_close($stmt);
+            printf("row inserted\n");
         } else {
             printf("erreur d'insert \n");
         }
