@@ -12,8 +12,12 @@
 */
 
 Route::get('/', function () {
+	//dump (DB::select('SELECT * FROM petition LIMIT 20'));
     return view('home');
 });
+
+Route::get('/', 'Controller@getData');
+Route::get('/home', 'Controller@getData');
 
 Route::get('monCompte', function () {
     return view('monCompte');
@@ -32,5 +36,3 @@ Route::get('abonnements', function () {
 });
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

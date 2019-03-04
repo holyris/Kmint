@@ -5,19 +5,29 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard</div>
-
-                <div class="card-body">
+                
                     @guest
                     @if (Route::has('register'))
-                        <p>Feed par défaut</p>
+                        <div class="card-header">Feed (Unconnected)</div>
                     @endif
                     @else
-                        <p>
-                            Vous êtes connecté.e<br>
-                            Feed perso ici
-                        </p>
+                        <div class="card-header">Feed (Connected)</div>
                     @endguest
+
+                    <div class="card-body">
+                    @foreach($data as $row)
+                        <tr>
+                            <td>Titre : {{ $row->titre }}</td><br>
+                            <td>Description : {{ $row->description }}</td><br>
+                            <td>Lien : {{ $row->lien }}</td><br>
+                            <td>Image : {{ $row->image }}</td><br>
+                            <td>Auteur : {{ $row->auteur }}</td><br>
+                            <td>Signature : {{ $row->signature }}</td><br>
+                            <td>Catégorie : {{ $row->categorie }}</td><br>
+                            <td>Site d'origine : {{ $row->site }}</td><br>
+                            <td>Date : {{ $row->date }}</td><br>
+                        </tr><br><br>
+                    @endforeach
                     
                 </div>
             </div>
