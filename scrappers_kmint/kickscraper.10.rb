@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'kickscraper'
 require 'date'
 require 'mysql2'
@@ -6,6 +8,7 @@ c = Kickscraper.client
 
 begin
     conn = Mysql2::Client.new(:host => "localhost", :username => "kmint", :password => "kmint123", :database => "kmint")
+    # conn = Mysql2::Client.new(:host => "164.132.195.3", :username => "thebault", :password => "thebault", :database => "kmint")
 
     page = []
     pagenb = 10
@@ -29,6 +32,7 @@ begin
                 timeleft = (deadline - DateTime.now).to_i  #   date de fin moins date actuelle converti en int
                 creator = page[n][i].creator.name
                 category = page[n][i].category.name
+                etat = page[n][i].state
                 conn.query("Insert into crowdfunding values ('"+conn.escape(title.to_s)+"','"+conn.escape(description.to_s)+"','"+url.to_s+"','"+img.to_s+"','"+engagement.to_s+"','"+timeleft.to_s+"','"+conn.escape(creator.to_s)+"','"+category.to_s+"','"+etat.to_s+"', CURRENT_TIMESTAMP)")
                 
 

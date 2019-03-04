@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'kickscraper'
 require 'date'
 require 'mysql2'
@@ -6,6 +8,7 @@ c = Kickscraper.client
 
 begin
     conn = Mysql2::Client.new(:host => "localhost", :username => "kmint", :password => "kmint123", :database => "kmint")
+    # conn = Mysql2::Client.new(:host => "164.132.195.3", :username => "thebault", :password => "thebault", :database => "kmint")
 
     page = []
     pagenb = 100
