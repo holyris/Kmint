@@ -14,16 +14,16 @@ begin
 
     
     results.each do |row|
-        puts projet = c.search_projects(row["titre"]).first
-        puts titre = conn.escape(row["titre"])          #   on echappe le texte pour eviter des problemes lors de l'update
+        projet = c.search_projects(row["titre"]).first
+        titre = conn.escape(row["titre"])          #   on echappe le texte pour eviter des problemes lors de l'update
         engagement = projet.pledged
         goal = projet.goal
         engagement = (engagement*100)/goal
-        puts engagement = engagement.round              #   engagement en pourcentage
+        engagement = engagement.round              #   engagement en pourcentage
         deadline = Time.at(projet.deadline).to_s        #   convertion en quelque chose de plus lisible        
         deadline = DateTime.parse(deadline)             #   rend la donnee exploitable 
-        puts timeleft = (deadline - DateTime.now).to_i  #   date de fin moins date actuelle converti en int
-        puts etat = projet.state
+        timeleft = (deadline - DateTime.now).to_i  #   date de fin moins date actuelle converti en int
+        etat = projet.state
 
         conn.query("UPDATE crowdfunding SET engagement = '"+engagement.to_s+"', deadline = '"+timeleft.to_s+"', etat = '"+etat.to_s+"' where titre = '"+titre+"'")
 
