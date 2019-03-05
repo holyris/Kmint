@@ -57,7 +57,7 @@ for($i = 1; $i < 3 ; $i++){
     preg_match_all("#<b>(.+) </b>#", $codesource, $tab_signature[$i], PREG_SET_ORDER);
     
     //  scraping categorie
-    preg_match_all("#<a class=\".+\" href=\"/petition/(.+)/.+/.+\" title=\".+\">#", $codesource, $tab_categorie[$i], PREG_SET_ORDER);
+    // preg_match_all("#<a class=\".+\" href=\"/petition/(.+)/.+/.+\" title=\".+\">#", $codesource, $tab_categorie[$i], PREG_SET_ORDER);
 
     // $m permet d'eviter les deux premieres données dans $tab_description
     // car dans le code html certaines division se confondent
@@ -73,7 +73,7 @@ for($i = 1; $i < 3 ; $i++){
         $img = $tab_img[$i][$j][1];
         $author = $tab_author[$i][$j][1];
         $signature = $tab_signature[$i][$j][1];
-        $categorie = $tab_categorie[$i][$j][1];
+        $categorie = NULL;
         $site = "mesopinions";
         if ($stmt = mysqli_prepare($conn, "INSERT INTO petition VALUES(?,?,?,?,?,?,?,?, CURRENT_TIMESTAMP)")) {
 
