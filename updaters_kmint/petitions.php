@@ -45,8 +45,13 @@ if (mysqli_num_rows($liens) > 0) {
             $codesource = file_get_contents("https://www.mesopinions.com".$row["lien"]);
 
             //  prend les signatures sur la page, si rien n'est trouve cela implique que la petition a ete supprimee
-            if(!preg_match_all("#<b class=\"colr\">(.+)</b>#", $codesource, $tab_signature, PREG_SET_ORDER))
-                $tab_signature[0][1] = "La pétition a été supprimée.";
+            if(!preg_match_all("#<b class=\"colr\">(.+)</b>#", $codesource, $tab_signature, PREG_SET_ORDER)){
+                $etat = "dead";
+                $tab_signature[0][1] = 0;
+            }
+                
+            else
+                $etat = "live";
 
             $tab_signature[0][1] = str_replace ('.', '', $tab_signature[0][1]); //  enleve les points de la chaine
             
@@ -58,14 +63,19 @@ if (mysqli_num_rows($liens) > 0) {
             $codesource = file_get_contents("https://www.petitions24.net".$row["lien"]);
 
             //  prend les signatures sur la page, si rien n'est trouve cela implique que la petition a ete supprimee
-            if(!preg_match_all("#<span class=\"signatureAmount badge badge-primary\">(.+)</span>#", $codesource, $tab_signature, PREG_SET_ORDER)) 
-                $tab_signature[0][1] = "La pétition a été supprimée.";
+            if(!preg_match_all("#<span class=\"signatureAmount badge badge-primary\">(.+)</span>#", $codesource, $tab_signature, PREG_SET_ORDER)){
+                $etat = "dead";
+                $tab_signature[0][1] = 0;
+            }
+            else
+                $etat = "live";
+        
 
         }
-                 
-        if ($stmt = mysqli_prepare($conn, "UPDATE petition SET signature = ? WHERE lien = ?")) {
 
-            mysqli_stmt_bind_param($stmt, 'ss', $tab_signature[0][1], $row["lien"]);
+        if ($stmt = mysqli_prepare($conn, "UPDATE petition SET signature = ?, etat = ? WHERE lien = ?")) {
+
+            mysqli_stmt_bind_param($stmt, 'sss', $tab_signature[0][1], $etat, $row["lien"]);
             mysqli_stmt_execute($stmt);            
             mysqli_stmt_close($stmt);
         } else {
