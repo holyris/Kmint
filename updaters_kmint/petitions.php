@@ -36,28 +36,33 @@ $liens = $conn->query($sql);  //prend tous les liens existants dans la bd et le 
 
 if (mysqli_num_rows($liens) > 0) {
 
-    // donne les donnees de chaque ligne
+    // rend les donnees de chaque ligne
     while($row = mysqli_fetch_assoc($liens)) {
 
         if($row["site"]=="mesopinions"){
+            
             //  met les donnees de la page dans $codesource
             $codesource = file_get_contents("https://www.mesopinions.com".$row["lien"]);
 
-            //  prend les signatures sur la page
-            preg_match_all("#<b class=\"colr\">(.+)</b>#", $codesource, $tab_signature, PREG_SET_ORDER);
+            //  prend les signatures sur la page, si rien n'est trouve cela implique que la petition a ete supprimee
+            if(!preg_match_all("#<b class=\"colr\">(.+)</b>#", $codesource, $tab_signature, PREG_SET_ORDER))
+                $tab_signature[0][1] = "La pétition a été supprimée.";
+
+            $tab_signature[0][1] = str_replace ('.', '', $tab_signature[0][1]); //  enleve les points de la chaine
             
         } 
 
         else if ($row["site"]=="petitions24") {
+
             //  met les donnees de la page dans $codesource
             $codesource = file_get_contents("https://www.petitions24.net".$row["lien"]);
 
-            //  prend les signatures sur la page
-            preg_match_all("#<span class=\"signatureAmount badge badge-primary\">(.+)</span>#", $codesource, $tab_signature, PREG_SET_ORDER);
-            printf("%s\n", $row["lien"]);
+            //  prend les signatures sur la page, si rien n'est trouve cela implique que la petition a ete supprimee
+            if(!preg_match_all("#<span class=\"signatureAmount badge badge-primary\">(.+)</span>#", $codesource, $tab_signature, PREG_SET_ORDER)) 
+                $tab_signature[0][1] = "La pétition a été supprimée.";
+
         }
-        
-         
+                 
         if ($stmt = mysqli_prepare($conn, "UPDATE petition SET signature = ? WHERE lien = ?")) {
 
             mysqli_stmt_bind_param($stmt, 'ss', $tab_signature[0][1], $row["lien"]);
