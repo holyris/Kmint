@@ -18,7 +18,7 @@ class Controller extends BaseController
     // Function to get data from database
     public function getData(\Request $request)
 	{
-		$data = DB::table('petition')->paginate($this->petition_par_page);
+		$data = DB::table('petition')->orderBy('date', 'desc')->paginate($this->petition_par_page);
 
 		if(count($data) > 0)
 		{
