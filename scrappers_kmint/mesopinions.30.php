@@ -73,9 +73,10 @@ for($i = 1; $i < 30 ; $i++){
         $signature = $tab_signature[$i][$j][1];
         $categorie = $tab_categorie[$i][$j][1];
         $site = "mesopinions";
-        if ($stmt = mysqli_prepare($conn, "INSERT INTO petition VALUES(?,?,?,?,?,?,?,?, CURRENT_TIMESTAMP)")) {
+        $etat = "live";
+        if ($stmt = mysqli_prepare($conn, "INSERT INTO petition VALUES(?,?,?,?,?,?,?,?,?, CURRENT_TIMESTAMP)")) {
 
-            mysqli_stmt_bind_param($stmt, "ssssssss", $title, $description, $link, $img, $author, $signature, $categorie, $site);
+            mysqli_stmt_bind_param($stmt, "sssssssss", $title, $description, $link, $img, $author, $signature, $categorie, $site, $etat);
             mysqli_stmt_execute($stmt);            
             mysqli_stmt_close($stmt);
         }
