@@ -12,12 +12,13 @@
 */
 
 Route::get('/', function () {
-	//dump (DB::select('SELECT * FROM petition LIMIT 20'));
     return view('home');
 });
 
 Route::get('/', 'Controller@getData');
 Route::get('/home', 'Controller@getData');
+Route::post('/', 'Controller@getParticularData');
+Route::post('/home', 'Controller@getParticularData');
 
 Route::get('monCompte', function () {
     return view('monCompte');
