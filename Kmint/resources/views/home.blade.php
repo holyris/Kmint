@@ -41,17 +41,41 @@
                         <div class="card-body">
                         @foreach($data as $row)
                         <div id="petition">
-                            <tr>
-                                <td>Titre : {{ $row->titre }}</td><br>
-                                <td>Description : {{ $row->description }}</td><br>
-                                <td>Lien : {{ $row->lien }}</td><br>
-                                <td>Image : {{ $row->image }}</td><br>
-                                <td>Auteur : {{ $row->auteur }}</td><br>
+                            <tr>                               
+                                
+                                @if ($row->site == 'mesopinions')
+                                    <a class="titre_petition" href="https://www.mesopinions.com{{ $row->lien }}" target="_blank">{{ $row->titre }}</a>
+                                @elseif ($row->site == 'petitions24')
+                                    <a class="titre_petition" href="https://www.petitions24.net{{ $row->lien }}" target="_blank">{{ $row->titre }}</a>
+                                @endif
+                                <br> 
+                                
+                                <a  href="{{ $row->lien }}" target="_blank">
+                                    @if ($row->site == 'mesopinions')
+                                        <img src="https://www.mesopinions.com/public/img/{{ $row->image }}" class="img_petition" alt="{{ $row->titre }}">
+                                    @elseif ($row->site == 'petitions24')
+                                        <img src="{{ $row->image }}" class="img_petition" alt="{{ $row->titre }}">
+                                    @endif
+                                </a>
+
+                                {{ $row->description }}<br>
+                                
+                                <td>Auteur : {{ $row->auteur }}</td>
                                 <td>Signature : {{ $row->signature }}</td><br>
-                                <td>Catégorie : {{ $row->categorie }}</td><br>
-                                <td>Site d'origine : {{ $row->site }}</td><br>
-                                <td>Date : {{ $row->date }}</td><br>
-                            </tr><br><br>
+
+
+                                @if ($row->site == 'mesopinions')
+                                    <a href="https://www.mesopinions.com{{ $row->lien }}" target="_blank">
+                                        <button class="bouton_petition">Signer</button>
+                                    </a>
+                                @elseif ($row->site == 'petitions24')
+                                    <a href="https://www.petitions24.net{{ $row->lien }}" target="_blank">
+                                        <button class="bouton_petition">Signer</button>
+                                    </a>
+                                @endif 
+
+                                
+                            </tr><br><br><br>
                         </div>    
                         @endforeach
                         {!! $data->links() !!}
