@@ -15,10 +15,17 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/', 'Controller@getData');
-Route::get('/home', 'Controller@getData');
-Route::post('/', 'Controller@getParticularData');
-Route::post('/home', 'Controller@getParticularData');
+Route::get('/', 'Controller@getPetition');
+Route::get('/home', 'Controller@getPetition');
+Route::post('/', 'Controller@getParticularPetition');
+Route::post('/home', 'Controller@getParticularPetition');
+
+Route::get('/crowdfunding', function () {
+    return view('crowdfunding');
+});
+
+Route::get('/crowdfunding', 'Controller@getCF');
+Route::post('/crowdfunding', 'Controller@getParticularCF');
 
 Route::get('monCompte', function () {
     return view('monCompte');
