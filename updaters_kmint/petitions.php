@@ -48,10 +48,9 @@ if (mysqli_num_rows($liens) > 0) {
             if(!preg_match_all("#<b class=\"colr\">(.+)</b>#", $codesource, $tab_signature, PREG_SET_ORDER)){
                 $etat = "dead";
                 $tab_signature[0][1] = 0;
-            }
-                
-            else
+            } else {
                 $etat = "live";
+            }
 
             $tab_signature[0][1] = str_replace ('.', '', $tab_signature[0][1]); //  enleve les points de la chaine
             
@@ -66,9 +65,9 @@ if (mysqli_num_rows($liens) > 0) {
             if(!preg_match_all("#<span class=\"signatureAmount badge badge-primary\">(.+)</span>#", $codesource, $tab_signature, PREG_SET_ORDER)){
                 $etat = "dead";
                 $tab_signature[0][1] = 0;
-            }
-            else
+            } else {
                 $etat = "live";
+            }
         
 
         }
