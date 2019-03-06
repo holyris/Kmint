@@ -49,38 +49,23 @@
                         <div id="petition">
                             <tr>                               
                                 
-                                @if ($row->site == 'mesopinions')
-                                    <a class="titre_petition" href="https://www.mesopinions.com{{ $row->lien }}" target="_blank">{{ $row->titre }}</a>
-                                @elseif ($row->site == 'petitions24')
-                                    <a class="titre_petition" href="https://www.petitions24.net{{ $row->lien }}" target="_blank">{{ $row->titre }}</a>
-                                @endif
+                                <a class="titre_petition" href="{{ $row->lien }}" target="_blank">{{ $row->titre }}</a>
                                 <br> 
                                 
-                                @if ($row->site == 'mesopinions')
-                                    <a  href="https://www.mesopinions.com{{ $row->lien }}" target="_blank">
-                                        <img src="https://www.mesopinions.com/public/img/{{ $row->image }}" class="img_petition" alt="{{ $row->titre }}">
-                                    </a>
-                                @elseif ($row->site == 'petitions24')
-                                    <a href="https://www.petitions24.net{{ $row->lien }}" target="_blank">
-                                        <img src="{{ $row->image }}" class="img_petition" alt="{{ $row->titre }}">
-                                    </a>
-                                @endif
+                                <a  href="{{ $row->lien }}" target="_blank">
+                                    <img src="{{ $row->image }}" class="img_petition" alt="{{ $row->titre }}">
+                                </a>
 
                                 {{ $row->description }}<br>
-                                
+
                                 <td>Auteur : {{ $row->auteur }}</td>
-                                <td>Signature : {{ $row->signature }}</td><br>
+                                <td>Deadline : {{ $row->deadline }} jours</td><br>
+                                <td>Engagement : {{ $row->engagement }}%</td><br>
+                                <td>Etat : {{ $row->etat }}</td><br>
 
-
-                                @if ($row->site == 'mesopinions')
-                                    <a href="https://www.mesopinions.com{{ $row->lien }}" target="_blank">
-                                        <button type="submit" name="button" class="btn btn-success">Signer</button>
-                                    </a>
-                                @elseif ($row->site == 'petitions24')
-                                    <a href="https://www.petitions24.net{{ $row->lien }}" target="_blank">
-                                        <button type="submit" name="button" class="btn btn-success">Signer</button>
-                                    </a>
-                                @endif 
+                                <a href="{{ $row->lien }}" target="_blank">
+                                    <button type="submit" name="button" class="btn btn-success">Participer</button>
+                                </a>
 
                                 
                             </tr><br><br><br>

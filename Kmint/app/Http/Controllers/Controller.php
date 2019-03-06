@@ -16,7 +16,7 @@ class Controller extends BaseController
     protected $petition_par_page = 5;
 
     // Function to get data from database
-    public function getData(\Request $request)
+    public function getPetition()
 	{
 		$data = DB::table('petition')->orderBy('date', 'desc')->paginate($this->petition_par_page);
 
@@ -30,7 +30,7 @@ class Controller extends BaseController
 		}
 	}
 
-	public static function getParticularData(\Request $request)
+	public static function getParticularPetition()
 	{
 		$validator = \Validator::make(request()->all(), [
             'requestedData' => 'required|string|min:1|max:750'
@@ -55,6 +55,49 @@ class Controller extends BaseController
 			else
 			{
 				return view('home');
+			}
+		}
+	}
+
+	public function getCF()
+	{
+		$data = DB::table('crowdfunding')->orderBy('date', 'desc')->paginate($this->petition_par_page);
+
+		if(count($data) > 0)
+		{
+			return view('crowdfunding')->with(compact('data'));
+		}
+		else
+		{
+			return view('crowdfunding');
+		}
+	}
+
+	public static function getParticularCF()
+	{
+		$validator = \Validator::make(request()->all(), [
+            'requestedData' => 'required|string|min:1|max:750'
+        ]);
+
+        if ($validator->fails()) {  //if the validation fails return with the errors
+
+            return view('welcome');
+		}else{
+			
+			//dd(request()->input());
+			$requestedData = request()->input("requestedData");
+			$data['data']  = DB::table('crowdfunding')->where('titre', 'like', '%' . $requestedData . '%')
+												  ->orWhere('description', 'like', '%' . $requestedData . '%')
+												  ->paginate(5);
+
+			//dd($data);
+			if(count($data) > 0)
+			{
+				return view('crowdfunding', $data);
+			}
+			else
+			{
+				return view('crowdfunding');
 			}
 		}
 	}
