@@ -1,3 +1,9 @@
+<?php 
+
+use App\Http\Controllers\Controller; 
+
+?>
+
 @extends('layouts.app')
 
 @section('content')
@@ -65,6 +71,9 @@
 
                                 <a href="{{ $row->lien }}" target="_blank">
                                     <button type="submit" name="button" class="btn btn-success">Participer</button>
+                                </a>
+                                <a action=<?php $fav; ?>>
+                                    <button type="submit" name="button" class="btn btn-primary">Favoris</button>
                                 </a>
 
                                 

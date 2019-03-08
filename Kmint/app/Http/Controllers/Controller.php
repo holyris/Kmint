@@ -101,4 +101,26 @@ class Controller extends BaseController
 			}
 		}
 	}
+
+	public static function createAbonnement()
+	{
+		return 'Look at this!';
+		if (request()->input("sports") === 'yes') {
+    		dd(request()->input());
+		} else {
+		    return view('welcome');
+		}
+	}
+
+	public static function executeAbo($method)
+	{
+		return 'yes';
+		return $this->{$createAbonnement}();
+	}
+
+	public static function addFavoris()
+	{
+		var_dump(request()->input());
+		return view('welcome');
+	}
 }

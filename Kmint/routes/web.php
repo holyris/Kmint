@@ -43,4 +43,10 @@ Route::get('abonnements', function () {
     return view('abonnements');
 });
 
+Route::get('/confirmAbo', function () {
+    return view('confirmAbo');
+});
+
+Route::get('/confirmAbo/{createAbonnement}', 'Controller@executeAbo');
+
 Auth::routes();
