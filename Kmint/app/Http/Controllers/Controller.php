@@ -102,14 +102,20 @@ class Controller extends BaseController
 		}
 	}
 
-	public static function createAbonnement()
+	public static function createAbonnements()
 	{
-		return 'Look at this!';
 		/*if (request()->input("sports") === 'yes') {
     		dd(request()->input());
 		} else {
 		    return view('welcome');
 		}*/
+		return redirect('/abonnements');
+
+	}
+
+	public static function deleteAbonnements()
+	{
+		return redirect('/abonnements');
 	}
 
 	public static function executeAbo($method)
