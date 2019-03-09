@@ -17,24 +17,23 @@
                 
     
         
-        <form id="uploadForm" method="POST"
-                              enctype="multipart/form-requestedData"
-                              style='display : none;'>
+            <form id="uploadForm" action="{{action('Controller@updateAbonnements')}}" enctype="multipart/form-requestedData" style='display : block;'>
+                              
                 <div class="row">
                 <div class="col-sm-6">
                   <div class="card">
                     <div class="card-body">
-                      <input type="checkbox" id="sports" name="subscribe" value="choix">
+                      <input type="checkbox" id="sports" name="subscribe[]" value="sports">
                       <label for="sports">Sport</label><br><br>
-                      <input type="checkbox" id="politique" name="subscribe" value="choix">
+                      <input type="checkbox" id="politique" name="subscribe[]" value="politique">
                       <label for="politique">Politique</label><br><br>
-                      <input type="checkbox" id="nature" name="subscribe" value="choix">
+                      <input type="checkbox" id="nature" name="subscribe[]" value="nature">
                       <label for="nature">Nature</label><br><br>
-                      <input type="checkbox" id="sante" name="subscribe" value="choix">
+                      <input type="checkbox" id="sante" name="subscribe[]" value="sante">
                       <label for="sante">Santé</label><br><br>
-                      <input type="checkbox" id="social" name="subscribe" value="choix">
+                      <input type="checkbox" id="social" name="subscribe[]" value="social">
                       <label for="social">Social</label><br><br>
-                      <input type="checkbox" id="justice" name="subscribe" value="choix">
+                      <input type="checkbox" id="justice" name="subscribe[]" value="justice">
                       <label for="justice">Justice</label><br><br>
                     </div>
                   </div>
@@ -42,36 +41,37 @@
                   <div class="col-sm-6">
                     <div class="card">
                     <div class="card-body">
-                      <input type="checkbox" id="droits_homme" name="subscribe" value="choix">
+                      <input type="checkbox" id="droits_homme" name="subscribe[]" value="droits_homme">
                       <label for="droits_homme">Droits de l'Homme</label><br><br>
-                      <input type="checkbox" id="espace_eurp" name="subscribe" value="choix">
+                      <input type="checkbox" id="espace_euro" name="subscribe[]" value="espace_euro">
                       <label for="espace_eurp">Espace euro</label><br><br>
-                      <input type="checkbox" id="enfants" name="subscribe" value="choix">
+                      <input type="checkbox" id="enfants" name="subscribe[]" value="enfants">
                       <label for="enfants">Enfants</label><br><br>
-                      <input type="checkbox" id="choix10" name="subscribe" value="choix">
-                      <label for="choix10">Arts</label><br><br>
-                      <input type="checkbox" id="choix11" name="subscribe" value="choix">
-                      <label for="choix11">Médias</label><br><br>
-                      <input type="checkbox" id="choix12" name="subscribe" value="choix">
-                      <label for="choix12">Animaux</label><br><br>
-                      <input type="checkbox" id="choix13" name="subscribe" value="choix">
-                      <label for="choix13">Autres</label><br><br>
+                      <input type="checkbox" id="arts" name="subscribe[]" value="arts">
+                      <label for="arts">Arts</label><br><br>
+                      <input type="checkbox" id="medias" name="subscribe[]" value="medias">
+                      <label for="medias">Médias</label><br><br>
+                      <input type="checkbox" id="animaux" name="subscribe[]" value="animaux">
+                      <label for="animaux">Animaux</label><br><br>
+                      <input type="checkbox" id="autres" name="subscribe[]" value="autres">
+                      <label for="autres">Autres</label><br><br>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="form-group">
-                <button type="submit" onclick="changement()" id="confirmer" name="button" class="btn btn-primary">Confirmer</button>
+                <button type="submit" id="confirmer" name="button" class="btn btn-primary">Confirmer</button>
 
                 
 
               </div>
-            </form>
+          </form>
+
             <a href="{{action('Controller@createAbonnements')}}">
               <button name="button" id="abonnement" name="button" class="btn btn-primary">Activer la fonction Abonnement</button>
             </a>
             <a href="{{action('Controller@deleteAbonnements')}}">
-              <button name="button" id="desabonnement" class="btn btn-danger" style="display : none;">Désactiver la fonction Abonnement</button>
+              <button name="button" id="desabonnement" class="btn btn-danger" style="display : block;">Désactiver la fonction Abonnement</button>
             </a>
             </div>
                 
@@ -79,7 +79,7 @@
         </div>
     </div>
 </div>
-<script>
+<!-- <script>
 function changement(elem){
   if(document.getElementById('paragraphe').style.display == 'block'){
     if(confirm("Activer l'abonnement ?")){
@@ -102,5 +102,5 @@ function changement(elem){
     
   }
 }
-</script>
+</script> -->
 @endsection
