@@ -9,7 +9,7 @@
 
                 <div class="card-body">
                     
-                  <a href="/informationsPerso">Mes informations personelles</a><br>
+                  <a href="/informationsPerso">Mes informations personnelles</a><br>
                   <a href="/favoris">Mes favoris</a><br> 
                   <a href="/abonnements">Mes abonnements</a><br>
 
