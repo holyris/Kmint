@@ -43,12 +43,11 @@ Route::get('abonnements', function () {
     return view('abonnements');
 });
 
-Route::post('/abonnements', 'Controller@createAbonnement');
-Route::post('/abonnements', 'Controller@createAbonnement');
+Route::get('/abonnements/activerAbonnements', 'Controller@createAbonnements');
 
-Route::get('/confirmAbo', function () {
-    return view('confirmAbo');
-});
+Route::get('/abonnements/desactiverAbonnements', 'Controller@deleteAbonnements');
+
+
 
 Route::get('/confirmAbo/{createAbonnement}', 'Controller@executeAbo');
 
