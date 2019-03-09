@@ -131,11 +131,20 @@ class Controller extends BaseController
 
 	public static function updateAbonnements(){
 		$checkbox = Input::get('subscribe');
-		foreach($checkbox as $choix){
-			DB::table('abonnement_petition')
-			->update([$choix => 1]
-			);
 
+		//	mets toutes les colonnes correspondantes aux categories à 0
+		//	C'est necessaire car on ne peut pas verifier quelles cases sont decochees
+		DB::table('abonnement_petition')->where('id', '=',  \Auth::user()->id)
+		->update(['politique'=>0, 'animaux'=>0, 'nature'=>0, 'social'=>0, 'justice'=>0, 'sante'=>0, 'droits_homme'=>0, 'espace_euro'=>0, 'enfants'=>0, 'arts'=>0, 'medias'=>0, 'sports'=>0, 'autres'=>0]);
+
+			// $choix prend la valeur value de la checkbox qui a ete cochee
+		if($checkbox != NULL){
+			foreach($checkbox as $choix){
+				DB::table('abonnement_petition')->where('id', '=',  \Auth::user()->id)
+				->update([$choix => 1]
+				);
+				
+			}
 		}
 		return redirect('/abonnements');
 	}
@@ -152,5 +161,12 @@ class Controller extends BaseController
 	{
 		var_dump(request()->input());
 		return view('welcome');
+	}
+
+
+	public static function getAbonnements()
+	{
+		$data['data'] = DB::table('abonnement_petition')->where('id', '=', \Auth::user()->id)->first();
+		return view('abonnements', $data);
 	}
 }
