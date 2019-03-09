@@ -20,7 +20,7 @@ body {
 
 .tab .tablinks {
 	background-color: inherit;
-	float: right;
+	float: left;
 	border: none;
 	outline: none;
 	cursor: pointer;
@@ -48,9 +48,8 @@ body {
 #uploadForm {
 	display: flex;
 	width: 55%;
-	margin-left: 1%;
 	font-size: 120%;
-	float: left;
+	float: right;
 	flex-direction: row;
 	justify-content: space-between;
 }

@@ -1,9 +1,3 @@
-<?php 
-
-use App\Http\Controllers\Controller; 
-
-?>
-
 @extends('layouts.app')
 
 @section('content')
@@ -11,8 +5,13 @@ use App\Http\Controllers\Controller;
     <div class="row justify-content-center">
         <div class="col-md-10">
         <div class="tab">
-                            
-        <form id="uploadForm" method="POST"
+            <a href="/">
+                <button class="tablinks">Pétition</button>
+            </a>
+            <a href="/crowdfunding">
+                <button id="actuel" class="tablinks">Crowdfunding</button>
+            </a>
+            <form id="uploadForm" method="POST"
                             enctype="multipart/form-requestedData">
                         {{ csrf_field() }}
 
@@ -33,13 +32,6 @@ use App\Http\Controllers\Controller;
                     
 
                 </form>
-
-            <a href="/">
-                <button id="actuel" class="tablinks">Pétition</button>
-            </a>
-            <a href="/crowdfunding">
-                <button class="tablinks">Crowdfunding</button>
-            </a>
         </div>
             <div class="card">
                 

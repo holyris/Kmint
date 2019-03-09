@@ -7,7 +7,13 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="tab">
-                            
+                <a href="/">
+                    <button id="actuel" class="tablinks">Pétition</button>
+                </a>
+                <a href="/crowdfunding">
+                    <button class="tablinks">Crowdfunding</button>
+                </a>
+                                            
             <form id="uploadForm" method="POST"
                               enctype="multipart/form-requestedData">
                             {{ csrf_field() }}
@@ -29,13 +35,6 @@
                         
 
                     </form>
-
-                <a href="/">
-                    <button id="actuel" class="tablinks">Pétition</button>
-                </a>
-                <a href="/crowdfunding">
-                    <button class="tablinks">Crowdfunding</button>
-                </a>
             </div>
             <div class="card">
                     <div class="infinite-scroll">
