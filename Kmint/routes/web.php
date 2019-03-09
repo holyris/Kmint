@@ -49,7 +49,7 @@ Route::get('/abonnements/desactiverAbonnements', 'Controller@deleteAbonnements')
 
 Route::get('/abonnements/updateAbonnements', 'Controller@updateAbonnements');
 
-
+Route::get('/abonnements', 'Controller@getAbonnements');
 
 Route::get('/confirmAbo/{createAbonnement}', 'Controller@executeAbo');
 
