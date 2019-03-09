@@ -6,6 +6,8 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Input;
+
 use Illuminate\Http\Request;
 use DB; //Pour inclure la database
 
@@ -76,7 +78,7 @@ class Controller extends BaseController
 	public static function getParticularCF()
 	{
 		$validator = \Validator::make(request()->all(), [
-            'requestedData' => 'required|string|min:1|max:750'
+            '' => 'required|string|min:1|max:750'
         ]);
 
         if ($validator->fails()) {  //if the validation fails return with the errors
@@ -104,17 +106,37 @@ class Controller extends BaseController
 
 	public static function createAbonnements()
 	{
-		/*if (request()->input("sports") === 'yes') {
-    		dd(request()->input());
-		} else {
-		    return view('welcome');
-		}*/
+		
+		if(	!DB::table('abonnement_petition')->where('id', '=',  \Auth::user()->id) ->exists() ){
+
+			DB::table('abonnement_petition')->insert(
+				['id' => \Auth::user()->id]
+			);
+		}
 		return redirect('/abonnements');
 
 	}
 
 	public static function deleteAbonnements()
 	{
+
+			if( DB::table('abonnement_petition')->where('id', '=',  \Auth::user()->id) ->exists() ){
+
+				DB::table('abonnement_petition')->where('id', 'like',  \Auth::user()->id)->delete();
+
+			}
+
+		return redirect('/abonnements');
+	}
+
+	public static function updateAbonnements(){
+		$checkbox = Input::get('subscribe');
+		foreach($checkbox as $choix){
+			DB::table('abonnement_petition')
+			->update([$choix => 1]
+			);
+
+		}
 		return redirect('/abonnements');
 	}
 
@@ -123,6 +145,8 @@ class Controller extends BaseController
 		return 'yes';
 		return $this->{$createAbonnement}();
 	}
+
+	
 
 	public static function addFavoris()
 	{
