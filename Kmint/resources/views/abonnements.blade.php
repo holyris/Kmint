@@ -9,13 +9,10 @@
             <div class="card">
                 <div class="card-header">Mes abonnements</div>
                 <p id="paragraphe" style="display : block;">
-                  Bienvenue dans la section abonnement. Ici vous pouvez sélectionner les
-                  catégories de pétition auxquelles vous souhaitez vous abonner. Cela sous entend que 
-                  vous ne verrez plus que ces catégories sur votre page d'accueil. <br>
-                  Pour se faire il vous suffit de cocher les catégories que vous souhaitez 
-                  et cliquer sur le bouton "Abonnement".<br>
-                  Vous avez la possibilité de vous désabonnez de toutes les catégories en un clique
-                  grâce au bouton "Désabonnement".<br>
+                  Bienvenue dans la section Abonnement. Ici vous pouvez sélectionner les
+                  catégories de pétition auxquelles vous souhaitez vous abonner. <br>
+                  Seules les pétitions des catégories auxquelles vous êtes abonné s'afficheront sur votre page d'accueil. <br>
+                <br>
                 </p>
                 
     
@@ -70,8 +67,12 @@
 
               </div>
             </form>
-            <button name="button" onclick="changement()" id="abonnement" name="button" class="btn btn-primary">Abonnement</button>
-            <button name="button" onclick="changement()" id="desabonnement" class="btn btn-danger" style="display : none;">Désabonnement</button>
+            <a href="{{action('Controller@createAbonnements')}}">
+              <button name="button" id="abonnement" name="button" class="btn btn-primary">Activer la fonction Abonnement</button>
+            </a>
+            <a href="{{action('Controller@deleteAbonnements')}}">
+              <button name="button" id="desabonnement" class="btn btn-danger" style="display : none;">Désactiver la fonction Abonnement</button>
+            </a>
             </div>
                 
                 
@@ -87,7 +88,6 @@ function changement(elem){
       document.getElementById('desabonnement').style.display='block';
       document.getElementById('abonnement').style.display='none';
 
-      {{ Controller::createAbonnement() }};
     }
 
   } else if(document.getElementById('paragraphe').style.display == 'none'){
