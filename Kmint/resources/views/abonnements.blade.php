@@ -1,12 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+<?php use \App\Http\Controllers\Controller;?>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Mes abonnements</div>
-                <p>
+                <p id="paragraphe" style="display : block;">
                   Bienvenue dans la section abonnement. Ici vous pouvez sélectionner les
                   catégories de pétition auxquelles vous souhaitez vous abonner. Cela sous entend que 
                   vous ne verrez plus que ces catégories sur votre page d'accueil. <br>
@@ -15,6 +17,12 @@
                   Vous avez la possibilité de vous désabonnez de toutes les catégories en un clique
                   grâce au bouton "Désabonnement".<br>
                 </p>
+                
+    
+        
+        <form id="uploadForm" method="POST"
+                              enctype="multipart/form-requestedData"
+                              style='display : none;'>
                 <div class="row">
                 <div class="col-sm-6">
                   <div class="card">
@@ -55,14 +63,44 @@
                   </div>
                 </div>
               </div>
+              <div class="form-group">
+                <button type="submit" onclick="changement()" id="confirmer" name="button" class="btn btn-primary">Confirmer</button>
+
+                
+
+              </div>
+            </form>
+            <button name="button" onclick="changement()" id="abonnement" name="button" class="btn btn-primary">Abonnement</button>
+            <button name="button" onclick="changement()" id="desabonnement" class="btn btn-danger" style="display : none;">Désabonnement</button>
             </div>
-            <a href="/confirmAbo">
-                <button type="submit" name="button" class="btn btn-primary">Abonnement</button>
-            </a>
-            <a href="/confirmDesabo">
-                <button type="submit" name="button" class="btn btn-danger">Désabonnement</button>
-            </a>
+                
+                
         </div>
     </div>
 </div>
+<script>
+function changement(elem){
+  if(document.getElementById('paragraphe').style.display == 'block'){
+    if(confirm("Activer l'abonnement ?")){
+      document.getElementById('uploadForm').style.display='block';
+      document.getElementById('paragraphe').style.display='none';
+      document.getElementById('desabonnement').style.display='block';
+      document.getElementById('abonnement').style.display='none';
+
+      {{ Controller::createAbonnement() }};
+    }
+
+  } else if(document.getElementById('paragraphe').style.display == 'none'){
+    if(confirm("Désactiver l'abonnement ?")){
+      document.getElementById('uploadForm').style.display='none';
+      document.getElementById('paragraphe').style.display='block';
+      document.getElementById('desabonnement').style.display='none';
+      document.getElementById('abonnement').style.display='block';
+
+      
+    }
+    
+  }
+}
+</script>
 @endsection

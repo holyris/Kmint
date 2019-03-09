@@ -43,6 +43,9 @@ Route::get('abonnements', function () {
     return view('abonnements');
 });
 
+Route::post('/abonnements', 'Controller@createAbonnement');
+Route::post('/abonnements', 'Controller@createAbonnement');
+
 Route::get('/confirmAbo', function () {
     return view('confirmAbo');
 });

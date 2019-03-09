@@ -45,7 +45,7 @@ class Controller extends BaseController
 			$requestedData = request()->input("requestedData");
 			$data['data']  = DB::table('petition')->where('titre', 'like', '%' . $requestedData . '%')
 												  ->orWhere('description', 'like', '%' . $requestedData . '%')
-												  ->paginate(5);
+												  ->paginate(20);
 
 			//dd($data);
 			if(count($data) > 0)
@@ -88,7 +88,7 @@ class Controller extends BaseController
 			$requestedData = request()->input("requestedData");
 			$data['data']  = DB::table('crowdfunding')->where('titre', 'like', '%' . $requestedData . '%')
 												  ->orWhere('description', 'like', '%' . $requestedData . '%')
-												  ->paginate(5);
+												  ->paginate(20);
 
 			//dd($data);
 			if(count($data) > 0)
@@ -105,11 +105,11 @@ class Controller extends BaseController
 	public static function createAbonnement()
 	{
 		return 'Look at this!';
-		if (request()->input("sports") === 'yes') {
+		/*if (request()->input("sports") === 'yes') {
     		dd(request()->input());
 		} else {
 		    return view('welcome');
-		}
+		}*/
 	}
 
 	public static function executeAbo($method)

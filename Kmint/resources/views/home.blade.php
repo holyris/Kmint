@@ -1,48 +1,43 @@
 @extends('layouts.app')
 
 @section('content')
+<?php use \App\Http\Controllers\Controller;?>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
-            <a href="/">
-                <button type="submit" name="button" class="btn btn-success">Pétition</button>
-            </a>
-            <a href="/crowdfunding">
-                <button type="submit" name="button" class="btn btn-success">CR</button>
-            </a>
-            <div class="card">
-                    
-                    <form id="uploadForm" method="POST"
+            <div class="tab">
+                            
+            <form id="uploadForm" method="POST"
                               enctype="multipart/form-requestedData">
                             {{ csrf_field() }}
 
 
-                    <div class="form-group{{ $errors->has('requestedData') ? ' has-error' : '' }} formField">
-                    <label for="comment">Recherche</label>
-                    <textarea class="form-control" rows="1" name="requestedData" maxlength="750" required
-                                                              autofocus></textarea>
+                    
+                    <label id="txt" for="comment">Recherche : </label>
+                    <textarea class="form-control" rows="1" id="research" name="requestedData" maxlength="750" required></textarea>
 
-                                                    @if ($errors->has('requestedData'))
-                                                        <span class="help-block">
-                                        <strong>{{ $errors->first('requestedData') }}</strong>
-                                        </span>
-                                                    @endif
-                                                </div>
+                    @if ($errors->has('requestedData'))
+                            <span class="help-block">
+                        <strong>{{ $errors->first('requestedData') }}</strong>
+                        </span>
+                    @endif
+                        
 
-                                                <div class="form-group">
-                                                    <button type="submit" name="button" class="btn btn-primary">Send!</button>
-                                                </div>
+                        
+                        <button type="submit" name="button" class="btn btn-primary">Rechercher</button>
+                        
 
                     </form>
 
-                    @guest
-                    @if (Route::has('register'))
-                        <div class="card-header">Feed (Unconnected)</div>
-                    @endif
-                    @else
-                        <div class="card-header">Feed (Connected)</div>
-                    @endguest
-
+                <a href="/">
+                    <button id="actuel" class="tablinks">Pétition</button>
+                </a>
+                <a href="/crowdfunding">
+                    <button class="tablinks">Crowdfunding</button>
+                </a>
+            </div>
+            <div class="card">
                     <div class="infinite-scroll">
                         <div class="card-body">
                         @foreach($data as $row)
@@ -68,7 +63,7 @@
 
                                 {{ $row->description }}<br>
                                 
-                                <td>Auteur : {{ $row->auteur }}</td>
+                                <td>Auteur : {{ $row->auteur }}</td><br>
                                 <td>Signature : {{ $row->signature }}</td><br>
 
 

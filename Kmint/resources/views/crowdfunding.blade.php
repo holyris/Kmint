@@ -10,45 +10,39 @@ use App\Http\Controllers\Controller;
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
+        <div class="tab">
+                            
+        <form id="uploadForm" method="POST"
+                            enctype="multipart/form-requestedData">
+                        {{ csrf_field() }}
+
+
+                
+                <label id="txt" for="comment">Recherche : </label>
+                <textarea class="form-control" rows="1" id="research" name="requestedData" maxlength="750" required></textarea>
+
+                @if ($errors->has('requestedData'))
+                        <span class="help-block">
+                    <strong>{{ $errors->first('requestedData') }}</strong>
+                    </span>
+                @endif
+                    
+
+                    
+                    <button type="submit" name="button" class="btn btn-primary">Rechercher</button>
+                    
+
+                </form>
+
             <a href="/">
-                <button type="submit" name="button" class="btn btn-success">Pétition</button>
+                <button id="actuel" class="tablinks">Pétition</button>
             </a>
             <a href="/crowdfunding">
-                <button type="submit" name="button" class="btn btn-success">CR</button>
+                <button class="tablinks">Crowdfunding</button>
             </a>
+        </div>
             <div class="card">
-                    
-                    <form id="uploadForm" method="POST"
-                              enctype="multipart/form-requestedData">
-                            {{ csrf_field() }}
-
-
-                    <div class="form-group{{ $errors->has('requestedData') ? ' has-error' : '' }} formField">
-                    <label for="comment">Recherche</label>
-                    <textarea class="form-control" rows="1" name="requestedData" maxlength="750" required
-                                                              autofocus></textarea>
-
-                                                    @if ($errors->has('requestedData'))
-                                                        <span class="help-block">
-                                        <strong>{{ $errors->first('requestedData') }}</strong>
-                                        </span>
-                                                    @endif
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <button type="submit" name="button" class="btn btn-primary">Send!</button>
-                                                </div>
-
-                    </form>
-
-                    @guest
-                    @if (Route::has('register'))
-                        <div class="card-header">Feed (Unconnected)</div>
-                    @endif
-                    @else
-                        <div class="card-header">Feed (Connected)</div>
-                    @endguest
-
+                
                     <div class="infinite-scroll">
                         <div class="card-body">
                         @foreach($data as $row)
