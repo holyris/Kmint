@@ -19,18 +19,114 @@ class Controller extends BaseController
 
     // Function to get data from database
     public function getPetition()
-	{
-		$data = DB::table('petition')->orderBy('date', 'desc')->paginate($this->petition_par_page);
+    {
+		$politique = "null";
+		$animaux = "null";
+		$nature = "null";
+		$social = "null";
+		$justice = "null";
+		$sante = "null";
+		$droits_homme = "null";
+		$espace_euro = "null";
+		$enfants = "null";
+		$arts = "null";
+		$medias = "null";
+		$sports = "null";
+		$autres = "null";
+        if(\Auth::check()){
+            if( !DB::table('abonnement_petition')->where('id', '=',  \Auth::user()->id) ->exists() ){
+                $data = DB::table('petition')->orderBy('date', 'desc')->paginate($this->petition_par_page);
 
-		if(count($data) > 0)
-		{
-			return view('home')->with(compact('data'));
-		}
-		else
-		{
-			return view('home');
-		}
-	}
+                if(count($data) > 0)
+                {
+                    return view('home')->with(compact('data'));
+                }
+                else
+                {
+                    return view('home');
+                }
+            } else {
+                $abo = DB::table('abonnement_petition')->where('id', '=',  \Auth::user()->id)->get();
+				
+				foreach ($abo as $val){
+					if ($val->politique == 1){
+						$politique = "politique";
+					}
+					if ($val->animaux == 1){
+						$animaux = "animaux";
+					}
+					if ($val->nature == 1){
+						$nature = "nature";
+					}
+					if ($val->social == 1){
+						$social = "social";
+					}
+					if ($val->justice == 1){
+						$justice = "justice";
+					}
+					if ($val->sante == 1){
+						$sante = "sante";
+					}
+					if ($val->droits_homme == 1){
+						$droits_homme = "droits_homme";
+					}
+					if ($val->espace_euro == 1){
+						$espace_euro = "espace_euro";
+					}
+					if ($val->enfants == 1){
+						$enfants = "enfants";
+					}
+					if ($val->arts == 1){
+						$arts = "arts";
+					}
+					if ($val->medias == 1){
+						$medias = "medias";
+					}
+					if ($val->sports == 1){
+						$sports = "sports";
+					}
+					if ($val->autres == 1){
+						$autres = "autres";
+					}
+				}
+				
+				$data = DB::table('petition')->where('categorie', '=', $politique)
+											 ->orWhere('categorie', '=', $animaux)
+											 ->orWhere('categorie', '=', $nature)
+											 ->orWhere('categorie', '=', $social)
+											 ->orWhere('categorie', '=', $justice)
+											 ->orWhere('categorie', '=', $sante)
+											 ->orWhere('categorie', '=', $droits_homme)
+											 ->orWhere('categorie', '=', $espace_euro)
+											 ->orWhere('categorie', '=', $enfants)
+											 ->orWhere('categorie', '=', $arts)
+											 ->orWhere('categorie', '=', $medias)
+											 ->orWhere('categorie', '=', $sports)
+											 ->orWhere('categorie', '=', $autres)
+											 ->paginate(5);
+
+                if(count($data) > 0)
+                {
+                    return view('home')->with(compact('data'));
+                }
+                else
+                {
+                    return view('home');
+                }
+            }
+        } else {
+            $data = DB::table('petition')->orderBy('date', 'desc')->paginate($this->petition_par_page);
+
+            if(count($data) > 0)
+            {
+                return view('home')->with(compact('data'));
+            }
+            else
+            {
+                return view('home');
+            }
+        }
+    }
 
 	public static function getParticularPetition()
 	{
@@ -148,14 +244,6 @@ class Controller extends BaseController
 		}
 		return redirect('/abonnements');
 	}
-
-	public static function executeAbo($method)
-	{
-		return 'yes';
-		return $this->{$createAbonnement}();
-	}
-
-	
 
 	public static function addFavoris()
 	{
