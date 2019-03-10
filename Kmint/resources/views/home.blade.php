@@ -3,6 +3,7 @@
 @section('content')
 <?php use \App\Http\Controllers\Controller;?>
 
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
@@ -35,7 +36,7 @@
                         <button type="submit" name="button" class="btn btn-primary">Rechercher</button>
                         
 
-                    </form>
+            </form>
             </div>
             <div class="card">
                     <div class="infinite-scroll">
@@ -63,7 +64,9 @@
 
                                 {{ $row->description }}<br>
                                 
-                                <td>Auteur : {{ $row->auteur }}</td><br>
+                                @if ($row->auteur != NULL)
+                                    <td>Auteur : {{ $row->auteur }}</td><br>
+                                @endif
                                 <td>Signature : {{ $row->signature }}</td><br>
 
 
@@ -76,6 +79,33 @@
                                         <button type="submit" name="button" class="btn btn-success">Signer</button>
                                     </a>
                                 @endif 
+
+                                <!--    regarde si la petition est bien dans les favoris de l'utilisateur si ce dernier est connecté-->
+                                {{ $favoris_exist = false}}
+
+                                @if (\Auth::check())                           
+                                
+                                    @foreach($favoris as $fav)
+                                        @if($row->lien == $fav->lien)
+                                            <?php $favoris_exist = true ?>
+                                        @endif
+                                    @endforeach
+
+                                    <button type="button" name="favori"  id="favori" value="{{ $row->lien }}"
+                                    @if ($favoris_exist==false)
+                                    onclick="addFavoris(this)" class="btn btn-success"
+                                    > Ajouter aux favoris
+                                    @else
+                                    onclick="supprFavoris(this)" class="btn btn-second"
+                                    > Enlever des favoris
+                                    @endif
+                                    
+                                    </button>
+
+                                @endif
+
+
+                                    
 
                                 
                             </tr><br><br><br>
@@ -96,7 +126,7 @@ $('ul.pagination').hide();
     $(function() {
         $('.infinite-scroll').jscroll({
             autoTrigger: true,
-            loadingHtml: '<img class="center-block" src="/images/ajax-loader.gif" alt="Loading..." />',
+            loadingHtml: '<img class="center-block" src={{ asset('img/ajax-loader.gif')}} alt="Loading..." />',
             padding: 0,
             nextSelector: '.pagination li.active + li a',
             contentSelector: 'div.infinite-scroll',
@@ -105,6 +135,49 @@ $('ul.pagination').hide();
             }
         });
     });
+
+    function addFavoris(elem){
+        $.ajax({
+            type: 'GET',
+            url: '/ajouterFavoris',
+            data: "lien="+elem.value,
+            success : function() {
+                
+            },
+            error : function(resultat, statut, erreur){
+                console.log("ça marche pas");
+            }
+        });
+        elem.setAttribute("onclick", "supprFavoris(this)");
+        elem.setAttribute("class", "btn btn-second");
+        elem.innerText="Enlever des favoris";
+        console.log("add");
+
+
+    }
+
+    function supprFavoris(elem){
+        $.ajax({
+            type: 'GET',
+            url: '/supprFavoris',
+            data: "lien="+elem.value,
+            success : function() {
+                
+            },
+            error : function(resultat, statut, erreur){
+                console.log("ça marche pas");
+            }
+        });
+
+        elem.setAttribute("onclick", "addFavoris(this)");
+        elem.setAttribute("class", "btn btn-success");
+
+        elem.innerText="Ajouter aux favoris";
+        console.log("suppr");
+        
+    }
+
+
 
 </script>
 

@@ -34,17 +34,22 @@ class Controller extends BaseController
 		$sports = "null";
 		$autres = "null";
         if(\Auth::check()){
+
+			$favoris = DB::table('favoris')->where('id_users', '=', \Auth::user()->id)->get();
+
+			//	dans le cas où l'user n'a pas activer l'abonnement
             if( !DB::table('abonnement_petition')->where('id', '=',  \Auth::user()->id) ->exists() ){
                 $data = DB::table('petition')->orderBy('date', 'desc')->paginate($this->petition_par_page);
 
                 if(count($data) > 0)
                 {
-                    return view('home')->with(compact('data'));
+                    return view('home')->with(compact('data', 'favoris'));
                 }
                 else
                 {
                     return view('home');
-                }
+				}
+			// dans le cas où l'user a activer l'abonnement
             } else {
                 $abo = DB::table('abonnement_petition')->where('id', '=',  \Auth::user()->id)->get();
 				
@@ -107,19 +112,20 @@ class Controller extends BaseController
 
                 if(count($data) > 0)
                 {
-                    return view('home')->with(compact('data'));
+                    return view('home')->with(compact('data', 'favoris'));
                 }
                 else
                 {
                     return view('home');
                 }
-            }
+			}
+			//	Dans le cas où l'user n'est pas connecte
         } else {
             $data = DB::table('petition')->orderBy('date', 'desc')->paginate($this->petition_par_page);
 
             if(count($data) > 0)
             {
-                return view('home')->with(compact('data'));
+                return view('home')->with(compact('data', 'favoris'));
             }
             else
             {
@@ -130,6 +136,9 @@ class Controller extends BaseController
 
 	public static function getParticularPetition()
 	{
+		if(\Auth::check())
+			$favoris['favoris'] = DB::table('favoris')->where('id_users', '=', \Auth::user()->id)->get();
+
 		$validator = \Validator::make(request()->all(), [
             'requestedData' => 'required|string|min:1|max:750'
         ]);
@@ -147,8 +156,10 @@ class Controller extends BaseController
 
 			//dd($data);
 			if(count($data) > 0)
-			{
-				return view('home', $data);
+			{	
+				if(\Auth::check())
+					return view('home', $data, $favoris);
+				else return view('home', $data);
 			}
 			else
 			{
@@ -173,6 +184,8 @@ class Controller extends BaseController
 
 	public static function getParticularCF()
 	{
+
+
 		$validator = \Validator::make(request()->all(), [
             '' => 'required|string|min:1|max:750'
         ]);
@@ -200,9 +213,37 @@ class Controller extends BaseController
 		}
 	}
 
+
+	public static function getFavoris(){
+		if(\Auth::check() != true){
+			return redirect('/');
+		}
+
+		//	On prend les liens des favoris de l'user connectee
+		$data = DB::table('petition')
+								->join('favoris', 'petition.lien', '=', 'favoris.lien')
+								->orderBy('favoris.date', 'desc')
+								->where('favoris.id_users', '=',  \Auth::user()->id)->get();
+
+	
+
+		if(count($data) > 0)
+		{	
+			return view('favoris')->with(compact('data'));
+		}
+		else
+		{
+			return view('favoris');
+		}
+
+
+	}
+
 	public static function createAbonnements()
 	{
-		
+		if(\Auth::check() != true){
+			return redirect('/');
+		}
 		if(	!DB::table('abonnement_petition')->where('id', '=',  \Auth::user()->id) ->exists() ){
 
 			DB::table('abonnement_petition')->insert(
@@ -216,16 +257,23 @@ class Controller extends BaseController
 	public static function deleteAbonnements()
 	{
 
-			if( DB::table('abonnement_petition')->where('id', '=',  \Auth::user()->id) ->exists() ){
+		if(\Auth::check() != true){
+			return redirect('/');
+		}
+		if( DB::table('abonnement_petition')->where('id', '=',  \Auth::user()->id) ->exists() ){
 
-				DB::table('abonnement_petition')->where('id', 'like',  \Auth::user()->id)->delete();
+			DB::table('abonnement_petition')->where('id', 'like',  \Auth::user()->id)->delete();
 
-			}
+		}
 
 		return redirect('/abonnements');
 	}
 
 	public static function updateAbonnements(){
+
+		if(\Auth::check() != true){
+			return redirect('/');
+		}
 		$checkbox = Input::get('subscribe');
 
 		//	mets toutes les colonnes correspondantes aux categories à 0
@@ -247,13 +295,37 @@ class Controller extends BaseController
 
 	public static function addFavoris()
 	{
-		var_dump(request()->input());
-		return view('welcome');
+
+		if(\Auth::check() != true){
+			return redirect('/');
+		}
+		$lien = Input::get('lien');
+		$chaine = \Auth::user()->id.$lien; // concatenation de l'id de l'user et du lien, correspond a la cle primaire
+ 
+		//	la date est ajoutee par defaut a l'heure d'insertion
+		DB::table('favoris')->insert(
+			['id_favoris' => $chaine, 'id_users' => \Auth::user()->id, 'lien' => $lien]
+		);
 	}
+
+	public static function supprFavoris()
+	{
+		if(\Auth::check() != true){
+			return redirect('/');
+		}
+		$lien = Input::get('lien');
+
+		DB::table('favoris')->where('id_users', '=', \Auth::user()->id)->where('lien','=',$lien)->delete();
+	}
+
+
 
 
 	public static function getAbonnements()
 	{
+		if(\Auth::check() != true){
+			return redirect('/');
+		}
 		$data['data'] = DB::table('abonnement_petition')->where('id', '=', \Auth::user()->id)->first();
 		return view('abonnements', $data);
 	}

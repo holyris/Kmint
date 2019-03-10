@@ -20,6 +20,7 @@ Route::get('/home', 'Controller@getPetition');
 Route::post('/', 'Controller@getParticularPetition');
 Route::post('/home', 'Controller@getParticularPetition');
 
+
 Route::get('/crowdfunding', function () {
     return view('crowdfunding');
 });
@@ -43,6 +44,12 @@ Route::get('abonnements', function () {
     return view('abonnements');
 });
 
+Route::get('/favoris', 'Controller@getFavoris');
+
+Route::get('/ajouterFavoris', 'Controller@addFavoris');
+
+Route::get('/supprFavoris', 'Controller@supprFavoris');
+
 Route::get('/abonnements/activerAbonnements', 'Controller@createAbonnements');
 
 Route::get('/abonnements/desactiverAbonnements', 'Controller@deleteAbonnements');
@@ -52,5 +59,7 @@ Route::get('/abonnements/updateAbonnements', 'Controller@updateAbonnements');
 Route::get('/abonnements', 'Controller@getAbonnements');
 
 Route::get('/confirmAbo/{createAbonnement}', 'Controller@executeAbo');
+
+
 
 Auth::routes();
