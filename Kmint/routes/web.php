@@ -17,8 +17,8 @@ Route::get('/', function () {
 
 Route::get('/', 'Controller@getPetition');
 Route::get('/home', 'Controller@getPetition');
-Route::post('/', 'Controller@getParticularPetition');
-Route::post('/home', 'Controller@getParticularPetition');
+Route::get('//recherchePetition', 'Controller@getParticularPetition');
+Route::get('/home/recherchePetition', 'Controller@getParticularPetition');
 
 
 Route::get('/crowdfunding', function () {
@@ -26,7 +26,7 @@ Route::get('/crowdfunding', function () {
 });
 
 Route::get('/crowdfunding', 'Controller@getCF');
-Route::post('/crowdfunding', 'Controller@getParticularCF');
+Route::get('/crowdfunding/rechercheCF', 'Controller@getParticularCF');
 
 Route::get('monCompte', function () {
     return view('monCompte');
@@ -57,9 +57,5 @@ Route::get('/abonnements/desactiverAbonnements', 'Controller@deleteAbonnements')
 Route::get('/abonnements/updateAbonnements', 'Controller@updateAbonnements');
 
 Route::get('/abonnements', 'Controller@getAbonnements');
-
-Route::get('/confirmAbo/{createAbonnement}', 'Controller@executeAbo');
-
-
 
 Auth::routes();

@@ -138,7 +138,7 @@ class Controller extends BaseController
 		}else{
 			
 			//dd(request()->input());
-			$requestedData = request()->input("requestedData");
+			$requestedData = Input::get('requestedData');
 			$data['data']  = DB::table('petition')->where('titre', 'like', '%' . $requestedData . '%')
 												  ->orWhere('description', 'like', '%' . $requestedData . '%')
 												  ->paginate(20);
@@ -182,7 +182,7 @@ class Controller extends BaseController
 		}else{
 			
 			//dd(request()->input());
-			$requestedData = request()->input("requestedData");
+			$requestedData = Input::get('requestedData');
 			$data['data']  = DB::table('crowdfunding')->where('titre', 'like', '%' . $requestedData . '%')
 												  ->orWhere('description', 'like', '%' . $requestedData . '%')
 												  ->paginate(20);

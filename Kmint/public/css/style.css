@@ -41,19 +41,66 @@ body {
 
 #research {
 	resize: none;
-	width: 300px;
+	width: 80%;
 	height: 41px;	
 }
 
 #uploadForm {
 	display: flex;
-	width: 55%;
-	font-size: 120%;
+	width: 25%;
 	float: right;
 	flex-direction: row;
-	justify-content: space-between;
+}
+
+form input {
+	width: 75%;
+	height: 75%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 form #txt{
 	padding-top: 1%;
 }
+
+/* Truc des categories 
+
+.dropbtn {
+  background-color: #3498DB;
+  color: white;
+  padding: 7px;
+  font-size: 100%;
+  border: none;
+  cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #2980B9;
+}
+
+.dropdown {
+  float: left;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}*/

@@ -11,14 +11,11 @@
             <a href="/crowdfunding">
                 <button id="actuel" class="tablinks">Crowdfunding</button>
             </a>
-            <form id="uploadForm" method="POST"
-                            enctype="multipart/form-requestedData">
-                        {{ csrf_field() }}
+            <form id="uploadForm" action="{{action('Controller@getParticularCF')}}"
+                                  enctype="multipart/form-requestedData">
+                                {{ csrf_field() }}
 
-
-                
-                <label id="txt" for="comment">Recherche : </label>
-                <input type="search" class="form-control" name="requestedData" id="research" placeholder="Rechercher..." maxlength="750" required/>
+                <input type="search" class="form-control" name="requestedData" id="research" placeholder="Rechercher..." required/>
 
                 @if ($errors->has('requestedData'))
                         <span class="help-block">
@@ -27,11 +24,10 @@
                 @endif
                     
 
-                    
-                    <button type="submit" name="button" class="btn btn-primary">Rechercher</button>
-                    
-
-                </form>
+                <a href="{{action('Controller@getParticularCF')}}">
+                  <button type="submit" name="button" class="btn btn-primary">Rechercher</button>
+                </a>
+            </form>
         </div>
             <div class="card">
 
