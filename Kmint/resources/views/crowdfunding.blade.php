@@ -58,9 +58,30 @@
                                 <a href="{{ $row->lien }}" target="_blank">
                                     <button type="submit" name="button" class="btn btn-success">Participer</button>
                                 </a>
-                                <a action=<?php $fav; ?>>
-                                    <button type="submit" name="button" class="btn btn-primary">Favoris</button>
-                                </a>
+                                
+                                <!--    regarde si la petition est bien dans les favoris de l'utilisateur si ce dernier est connecté-->
+                                {{ $favoris_exist = false}}
+
+                                @if (\Auth::check())                           
+                                
+                                    @foreach($favoris as $fav)
+                                        @if($row->lien == $fav->lien)
+                                            <?php $favoris_exist = true ?>
+                                        @endif
+                                    @endforeach
+
+                                    <button type="button" name="favori"  id="favori" value="{{ $row->lien }}"
+                                    @if ($favoris_exist==false)
+                                    onclick="addFavoris(this)" class="btn btn-success"
+                                    > Ajouter aux favoris
+                                    @else
+                                    onclick="supprFavoris(this)" class="btn btn-second"
+                                    > Enlever des favoris
+                                    @endif
+                                    
+                                    </button>
+
+                                @endif
 
                                 
                             </tr><br><br><br>
@@ -90,6 +111,50 @@ $('ul.pagination').hide();
             }
         });
     });
+
+
+//  Fonction qui ajoute un favori
+function addFavoris(elem){
+    $.ajax({
+        type: 'GET',
+        url: '/ajouterFavoris',
+        data: "lien="+elem.value,
+        success : function() {
+            
+        },
+        error : function(resultat, statut, erreur){
+            console.log("ça marche pas");
+        }
+    });
+    elem.setAttribute("onclick", "supprFavoris(this)");
+    elem.setAttribute("class", "btn btn-second");
+    elem.innerText="Enlever des favoris";
+    console.log("add");
+
+
+}
+
+//  Fonction qui supprime un favori
+function supprFavoris(elem){
+    $.ajax({
+        type: 'GET',
+        url: '/supprFavoris',
+        data: "lien="+elem.value,
+        success : function() {
+            
+        },
+        error : function(resultat, statut, erreur){
+            console.log("ça marche pas");
+        }
+    });
+
+    elem.setAttribute("onclick", "addFavoris(this)");
+    elem.setAttribute("class", "btn btn-success");
+
+    elem.innerText="Ajouter aux favoris";
+    console.log("suppr");
+    
+}
 
 </script>
 
