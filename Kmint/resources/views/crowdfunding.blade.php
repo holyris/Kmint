@@ -25,10 +25,13 @@
                     
 
                 <a href="{{action('Controller@getParticularCF')}}">
-                   <input type="image" src="{{URL::asset('img/loupeRech.png')}}">   
+                   <button type="submit" name="button" class="btn btn-primary">Rechercher</button>
                 </a>
             </form>
         </div>
+        <a id="haut" class="anchorLink" href="#">
+            <img src="{{ asset('img/icone_fleche.png')}}" alt="fleche">
+        </a>
             <div class="card">
 
                     <div class="infinite-scroll">
@@ -102,7 +105,7 @@ $('ul.pagination').hide();
     $(function() {
         $('.infinite-scroll').jscroll({
             autoTrigger: true,
-            loadingHtml: '<img class="center-block" src="/images/ajax-loader.gif" alt="Loading..." />',
+            loadingHtml: '<img class="center-block" src={{ asset('img/ajax-loader.gif')}} alt="Loading..." />',
             padding: 0,
             nextSelector: '.pagination li.active + li a',
             contentSelector: 'div.infinite-scroll',
