@@ -41,14 +41,10 @@ class Controller extends BaseController
             if( !DB::table('abonnement_petition')->where('id', '=',  \Auth::user()->id) ->exists() ){
                 $data = DB::table('petition')->orderBy('date', 'desc')->paginate($this->petition_par_page);
 
-                if(count($data) > 0)
-                {
-                    return view('home')->with(compact('data', 'favoris'));
-                }
-                else
-                {
-                    return view('home');
-				}
+                
+				return view('home')->with(compact('data', 'favoris'));
+
+               
 			// dans le cas où l'user a activer l'abonnement
             } else {
                 $abo = DB::table('abonnement_petition')->where('id', '=',  \Auth::user()->id)->get();
@@ -108,29 +104,22 @@ class Controller extends BaseController
 											 ->orWhere('categorie', '=', $medias)
 											 ->orWhere('categorie', '=', $sports)
 											 ->orWhere('categorie', '=', $autres)
-											 ->paginate(5);
+											 ->orderBy('date', 'desc')
+											 ->paginate(10);
 
-                if(count($data) > 0)
-                {
-                    return view('home')->with(compact('data', 'favoris'));
-                }
-                else
-                {
-                    return view('home');
-                }
+				//	Dans le cas ou l'utilisateur n'a pas choisi d'abonnement
+				$msg = "Vous n'avez choisi aucune catégorie. Si vous n'avez pas de préférence de catégorie, désactiver la fonction abonnement.";
+				return view('home')->with(compact('data', 'favoris', 'msg'));
+                
+                
 			}
 			//	Dans le cas où l'user n'est pas connecte
         } else {
             $data = DB::table('petition')->orderBy('date', 'desc')->paginate($this->petition_par_page);
 
-            if(count($data) > 0)
-            {
-                return view('home')->with(compact('data', 'favoris'));
-            }
-            else
-            {
-                return view('home');
-            }
+            
+			return view('home')->with(compact('data', 'favoris'));
+            
         }
     }
 
@@ -154,18 +143,12 @@ class Controller extends BaseController
 												  ->orWhere('description', 'like', '%' . $requestedData . '%')
 												  ->paginate(20);
 
-			//dd($data);
-			if(count($data) > 0)
-			{	
-				if(\Auth::check())
-					return view('home', $data, $favoris);
-				else 
-					return view('home', $data);
-			}
-			else
-			{
-				return view('home');
-			}
+			$msg = "Aucun résultat n'a été trouvé.";
+			if(\Auth::check())
+				return view('home', $data)->with(compact('favoris', 'msg'));
+			else 
+				return view('home')->with(compact('data'));
+			
 		}
 	}
 
@@ -175,17 +158,12 @@ class Controller extends BaseController
 		if(\Auth::check())
 			$favoris = DB::table('favoris')->where('id_users', '=', \Auth::user()->id)->get();
 
-		if(count($data) > 0)
-		{
-			if(\Auth::check())
-				return view('crowdfunding')->with(compact('data', 'favoris'));
-			else 
-				return view('crowdfunding')->with(compact('data'));
-		}
-		else
-		{
-			return view('crowdfunding');
-		}
+		
+		if(\Auth::check())
+			return view('crowdfunding')->with(compact('data', 'favoris'));
+		else 
+			return view('crowdfunding')->with(compact('data'));
+		
 	}
 
 	public static function getParticularCF()
@@ -195,7 +173,7 @@ class Controller extends BaseController
 			$favoris['favoris'] = DB::table('favoris')->where('id_users', '=', \Auth::user()->id)->get();
 
 		$validator = \Validator::make(request()->all(), [
-            '' => 'required|string|min:1|max:750'
+            'requestedData' => 'required|string|min:1|max:750'
         ]);
 
         if ($validator->fails()) {  //if the validation fails return with the errors
@@ -210,17 +188,12 @@ class Controller extends BaseController
 												  ->paginate(20);
 
 			//dd($data);
-			if(count($data) > 0)
-			{
-				if(\Auth::check())
-					return view('crowdfunding', $data, $favoris);
-				else
-					return view('crowdfunding', $data);
-			}
+			
+			if(\Auth::check())
+				return view('crowdfunding', $data, $favoris);
 			else
-			{
-				return view('crowdfunding');
-			}
+				return view('crowdfunding', $data);
+			
 		}
 	}
 
@@ -239,15 +212,8 @@ class Controller extends BaseController
 								->where('favoris.id_users', '=',  \Auth::user()->id)->get();
 
 	
-
-		if(count($data) > 0)
-		{	
-			return view('favoris')->with(compact('data'));
-		}
-		else
-		{
-			return view('favoris');
-		}
+		return view('favoris')->with(compact('data'));
+		
 
 
 	}
