@@ -159,7 +159,8 @@ class Controller extends BaseController
 			{	
 				if(\Auth::check())
 					return view('home', $data, $favoris);
-				else return view('home', $data);
+				else 
+					return view('home', $data);
 			}
 			else
 			{
@@ -171,10 +172,15 @@ class Controller extends BaseController
 	public function getCF()
 	{
 		$data = DB::table('crowdfunding')->orderBy('date', 'desc')->paginate($this->petition_par_page);
+		if(\Auth::check())
+			$favoris = DB::table('favoris')->where('id_users', '=', \Auth::user()->id)->get();
 
 		if(count($data) > 0)
 		{
-			return view('crowdfunding')->with(compact('data'));
+			if(\Auth::check())
+				return view('crowdfunding')->with(compact('data', 'favoris'));
+			else 
+				return view('crowdfunding')->with(compact('data'));
 		}
 		else
 		{
@@ -185,6 +191,8 @@ class Controller extends BaseController
 	public static function getParticularCF()
 	{
 
+		if(\Auth::check())
+			$favoris['favoris'] = DB::table('favoris')->where('id_users', '=', \Auth::user()->id)->get();
 
 		$validator = \Validator::make(request()->all(), [
             '' => 'required|string|min:1|max:750'
@@ -204,7 +212,10 @@ class Controller extends BaseController
 			//dd($data);
 			if(count($data) > 0)
 			{
-				return view('crowdfunding', $data);
+				if(\Auth::check())
+					return view('crowdfunding', $data, $favoris);
+				else
+					return view('crowdfunding', $data);
 			}
 			else
 			{
@@ -214,6 +225,8 @@ class Controller extends BaseController
 	}
 
 
+	//	Fonction qui renvoie dans la vue un tableau de petitions 
+	//	qui sont dans les favoris de l'utilisateur connecte
 	public static function getFavoris(){
 		if(\Auth::check() != true){
 			return redirect('/');
