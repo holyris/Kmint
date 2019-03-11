@@ -42,7 +42,7 @@
             
                     <div class="infinite-scroll">
                         <div class="card-body">
-                        <!-- Dans le cas ou l'utilisateur n'a pas choisi de catégorie -->
+                        <!-- Dans le cas ou l'utilisateur n'a pas choisi de catégorie ou que la recherche n'a rien trouvé -->
                         @if(count($data) == 0)
                             {{ $msg }}
                         @endif
