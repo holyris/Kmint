@@ -145,9 +145,9 @@ class Controller extends BaseController
 
 			$msg = "Aucun résultat n'a été trouvé.";
 			if(\Auth::check())
-				return view('home', $data)->with(compact('favoris', 'msg'));
+				return view('home', $data, $favoris)->with(compact('msg'));
 			else 
-				return view('home')->with(compact('data'));
+				return view('home', $data)->with(compact('msg'));
 			
 		}
 	}
@@ -187,12 +187,12 @@ class Controller extends BaseController
 												  ->orWhere('description', 'like', '%' . $requestedData . '%')
 												  ->paginate(20);
 
-			//dd($data);
 			
+			$msg = "Aucun résultat n'a été trouvé.";
 			if(\Auth::check())
-				return view('crowdfunding', $data, $favoris);
+				return view('crowdfunding', $data, $favoris)->with(compact('msg'));
 			else
-				return view('crowdfunding', $data);
+				return view('crowdfunding', $data)->with(compact('msg'));
 			
 		}
 	}
