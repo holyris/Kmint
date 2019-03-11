@@ -136,46 +136,48 @@ $('ul.pagination').hide();
         });
     });
 
-    function addFavoris(elem){
-        $.ajax({
-            type: 'GET',
-            url: '/ajouterFavoris',
-            data: "lien="+elem.value,
-            success : function() {
-                
-            },
-            error : function(resultat, statut, erreur){
-                console.log("ça marche pas");
-            }
-        });
-        elem.setAttribute("onclick", "supprFavoris(this)");
-        elem.setAttribute("class", "btn btn-second");
-        elem.innerText="Enlever des favoris";
-        console.log("add");
+//  Fonction qui ajoute un favori
+function addFavoris(elem){
+    $.ajax({
+        type: 'GET',
+        url: '/ajouterFavoris',
+        data: "lien="+elem.value,
+        success : function() {
+            
+        },
+        error : function(resultat, statut, erreur){
+            console.log("ça marche pas");
+        }
+    });
+    elem.setAttribute("onclick", "supprFavoris(this)");
+    elem.setAttribute("class", "btn btn-second");
+    elem.innerText="Enlever des favoris";
+    console.log("add");
 
 
-    }
+}
 
-    function supprFavoris(elem){
-        $.ajax({
-            type: 'GET',
-            url: '/supprFavoris',
-            data: "lien="+elem.value,
-            success : function() {
-                
-            },
-            error : function(resultat, statut, erreur){
-                console.log("ça marche pas");
-            }
-        });
+//  Fonction qui supprime un favori
+function supprFavoris(elem){
+    $.ajax({
+        type: 'GET',
+        url: '/supprFavoris',
+        data: "lien="+elem.value,
+        success : function() {
+            
+        },
+        error : function(resultat, statut, erreur){
+            console.log("ça marche pas");
+        }
+    });
 
-        elem.setAttribute("onclick", "addFavoris(this)");
-        elem.setAttribute("class", "btn btn-success");
+    elem.setAttribute("onclick", "addFavoris(this)");
+    elem.setAttribute("class", "btn btn-success");
 
-        elem.innerText="Ajouter aux favoris";
-        console.log("suppr");
-        
-    }
+    elem.innerText="Ajouter aux favoris";
+    console.log("suppr");
+    
+}
 
 
 
