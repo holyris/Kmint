@@ -9,10 +9,11 @@
 
                 <div class="card-body">
                 
-                @if(!isset($data))
+                @if(count($data) == 0)
                   Vos pétitions favorites seront affichées ici
                 @endif
                   <div class="card">
+                  
                     <div class="infinite-scroll">
                         <div class="card-body">
                         @foreach($data as $row)
