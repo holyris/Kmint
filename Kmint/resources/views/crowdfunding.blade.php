@@ -34,9 +34,13 @@
                 </form>
         </div>
             <div class="card">
-                
+
                     <div class="infinite-scroll">
                         <div class="card-body">
+                        <!-- Dans le cas ou la recherche n'a rien trouvé -->
+                        @if(count($data) == 0)
+                            {{ $msg }}
+                        @endif
                         @foreach($data as $row)
                         <div id="petition">
                             <tr>                               
