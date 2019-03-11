@@ -25,7 +25,7 @@
                     
 
                 <a href="{{action('Controller@getParticularCF')}}">
-                  <button type="submit" name="button" class="btn btn-primary">Rechercher</button>
+                   <input type="image" src="{{URL::asset('img/loupeRech.png')}}">   
                 </a>
             </form>
         </div>
