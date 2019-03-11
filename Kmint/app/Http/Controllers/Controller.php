@@ -205,6 +205,8 @@ class Controller extends BaseController
 			return redirect('/');
 		}
 
+		$favoris['favoris'] = DB::table('favoris')->where('id_users', '=', \Auth::user()->id)->get();
+
 		//	On prend les liens des favoris de l'user connectee
 		$data = DB::table('petition')
 								->join('favoris', 'petition.lien', '=', 'favoris.lien')
@@ -212,7 +214,7 @@ class Controller extends BaseController
 								->where('favoris.id_users', '=',  \Auth::user()->id)->get();
 
 	
-		return view('favoris')->with(compact('data'));
+		return view('favoris', $favoris)->with(compact('data'));
 		
 
 
@@ -247,6 +249,7 @@ class Controller extends BaseController
 
 		return redirect('/abonnements');
 	}
+
 
 	public static function updateAbonnements(){
 

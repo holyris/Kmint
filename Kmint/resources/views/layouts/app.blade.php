@@ -59,8 +59,16 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="/monCompte">
-                                        {{ __('Mon Compte') }}
+                                    <a class="dropdown-item" href="/favoris">
+                                        {{ __('Favoris') }}
+                                    </a>
+
+                                    <a class="dropdown-item" href="/abonnements">
+                                        {{ __('Abonnements') }}
+                                    </a>
+
+                                    <a class="dropdown-item" href="/informationsPerso">
+                                        {{ __('Profil') }}
                                     </a>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
