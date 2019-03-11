@@ -18,7 +18,7 @@
 
                 
                 <label id="txt" for="comment">Recherche : </label>
-                <textarea class="form-control" rows="1" id="research" name="requestedData" maxlength="750" required></textarea>
+                <input type="search" class="form-control" name="requestedData" id="research" placeholder="Rechercher..." maxlength="750" required/>
 
                 @if ($errors->has('requestedData'))
                         <span class="help-block">
