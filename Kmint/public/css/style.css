@@ -47,21 +47,20 @@ body {
 
 #uploadForm {
 	display: flex;
-	width: 25%;
+	width: 40%;
 	float: right;
 	flex-direction: row;
 }
 
-form input {
-	width: 75%;
-	height: 75%;
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
+form button {
+	height: 100%;
 }
 
-form #txt{
-	padding-top: 1%;
+#haut {
+	position: fixed;
+	display: block;
+	right: 5%;
+	bottom : 5%;
 }
 
 /* Truc des categories 

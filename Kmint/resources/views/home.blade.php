@@ -28,12 +28,14 @@
                     @endif
                         
 
-                    <a href="{{action('Controller@getParticularPetition')}}" id="rech">
-                        <input type="image" src="{{URL::asset('img/loupeRech.png')}}">   
+                    <a href="{{action('Controller@getParticularCF')}}">
+                        <button type="submit" name="button" class="btn btn-primary">Rechercher</button>
                     </a>
                 </form>
             </div>
-            
+            <a id="haut" class="anchorLink" href="#">
+                <img src="{{ asset('img/icone_fleche.png')}}" alt="fleche">
+            </a>
             <div class="card">
             
                     <div class="infinite-scroll">
