@@ -11,7 +11,7 @@
             <a href="/crowdfunding">
                 <button id="actuel" class="tablinks">Crowdfunding</button>
             </a>
-            <form id="uploadForm" action="{{action('Controller@getParticularCF')}}"
+            <form id="uploadFormm" action="{{action('Controller@getParticularCF')}}"
                                   enctype="multipart/form-requestedData">
                                 {{ csrf_field() }}
 
@@ -43,20 +43,23 @@
                         @foreach($data as $row)
                         <div id="petition">
                             <tr>                               
-                                
+                                <div id="titre">
                                 <a class="titre_petition" href="{{ $row->lien }}" target="_blank">{{ $row->titre }}</a>
-                                <br> 
-                                
+                                </div>
                                 <a  href="{{ $row->lien }}" target="_blank">
                                     <img src="{{ $row->image }}" class="img_petition" alt="{{ $row->titre }}">
                                 </a>
-
+                                <div id="descr"> 
                                 {{ $row->description }}<br>
-
-                                <td>Auteur : {{ $row->auteur }}</td>
-                                <td>Deadline : {{ $row->deadline }} jours</td><br>
+                                </div>
+                                <div id="info">
+                                <td>Auteur : {{ $row->auteur }}</td><br>
+                                <td>Fin dans {{ $row->deadline }} jours</td><br>
+                                <div id="signa">
                                 <td>Engagement : {{ $row->engagement }}%</td><br>
-                                <td>Etat : {{ $row->etat }}</td><br>
+                                </div>
+                                <td>Etat : {{ $row->etat }}</td>
+                                </div>
 
                                 <a href="{{ $row->lien }}" target="_blank">
                                     <button type="submit" name="button" class="btn btn-success">Participer</button>
