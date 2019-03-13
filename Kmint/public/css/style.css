@@ -118,6 +118,7 @@ form button {
 #haut {
 	position: fixed;
 	display: none;
+	cursor:pointer;
 	right: 5%;
 	bottom : 5%;
 }
