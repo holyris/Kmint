@@ -87,8 +87,9 @@ body {
 }
 
 .titre_tab{
-	float:right;
-	margin-left:20%;
+	margin-right:10%;
+	text-align:center;
+	margin-top:1%;
 }
 
 #actuel {

@@ -18,6 +18,8 @@
                 <a href="/favoris/crowdfunding">
                     <button class="tablinks">Crowdfunding</button>
                 </a>
+
+                <h5 class="titre_tab">Favoris</h5>
                                             
             </div>
 
