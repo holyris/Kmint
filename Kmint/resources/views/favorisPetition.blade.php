@@ -3,29 +3,36 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="card">
-                <div class="card-header">Mes favoris</div>
+            <div class="tab">
+                <a href="#">
+                    <button id="actuel" class="tablinks">Pétition</button>
+                </a>
+                <a href="/favoris/crowdfunding">
+                    <button class="tablinks">Crowdfunding</button>
+                </a>
+                                            
+            </div>
 
                 <div class="card-body">
                 
                 @if(count($data) == 0)
-                  Vos pétitions favorites seront affichées ici
+                  Vos pétitions favorites seront affichées ici.
                 @endif
-                  <div class="card">
-                  
+                <div class="card">
                     <div class="infinite-scroll">
                         <div class="card-body">
                         @foreach($data as $row)
                         <div id="{{ $row->lien }}" >
                             <tr>                               
-                                
+                                <div id="titre">
                                 @if ($row->site == 'mesopinions')
                                     <a class="titre_petition" href="https://www.mesopinions.com{{ $row->lien }}" target="_blank">{{ $row->titre }}</a>
                                 @elseif ($row->site == 'petitions24')
                                     <a class="titre_petition" href="https://www.petitions24.net{{ $row->lien }}" target="_blank">{{ $row->titre }}</a>
                                 @endif
-                                <br> 
+                                </div>
                                 
                                 @if ($row->site == 'mesopinions')
                                     <a  href="https://www.mesopinions.com{{ $row->lien }}" target="_blank">
@@ -37,12 +44,18 @@
                                     </a>
                                 @endif
 
-                                {{ $row->description }}<br>
+                                <div id="descr">
+                                    <p>{{ $row->description }}</p><br>
+                                </div>
                                 
-                                @if ($row->auteur != NULL)
-                                    <td>Auteur : {{ $row->auteur }}</td><br>
-                                @endif
-                                <td>Signature : {{ $row->signature }}</td><br>
+                                <div id="info">
+                                    @if ($row->auteur != NULL)
+                                        <td>Auteur : {{ $row->auteur }}</td><br>
+                                    @endif
+                                    <div id="signa">
+                                        <td>Signature : {{ $row->signature }}</td>
+                                    </div>
+                                </div>
 
 
                                 @if ($row->site == 'mesopinions')
@@ -76,8 +89,7 @@
 
                     </div>
                 </div>
-
-                </div>
+                
             </div>
         </div>
     </div>
@@ -103,7 +115,7 @@ $('ul.pagination').hide();
 function supprFavoris(elem){
     $.ajax({
         type: 'GET',
-        url: '/supprFavoris',
+        url: '/favoris/supprFavoris',
         data: "lien="+elem.value,
         success : function() {
             

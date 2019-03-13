@@ -44,11 +44,13 @@ Route::get('abonnements', function () {
     return view('abonnements');
 });
 
-Route::get('/favoris', 'Controller@getFavoris');
+Route::get('/favoris/petition', 'Controller@getFavorisPetition');
 
-Route::get('/ajouterFavoris', 'Controller@addFavoris');
+Route::get('/favoris/crowdfunding', 'Controller@getFavorisCf');
 
-Route::get('/supprFavoris', 'Controller@supprFavoris');
+Route::get('/favoris/ajouterFavoris', 'Controller@addFavoris');
+
+Route::get('/favoris/supprFavoris', 'Controller@supprFavoris');
 
 Route::get('/abonnements/activerAbonnements', 'Controller@createAbonnements');
 

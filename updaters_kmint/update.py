@@ -14,13 +14,13 @@ conn_update = mysql.connector.connect(host="localhost",user="kmint",password="km
 cursor = conn.cursor()
 cursor_update = conn_update.cursor(prepared=True);
 
-with open('petitions_train.csv', 'r', encoding="utf-8") as fp:
+with open('/home/kmint/updaters_kmint/petitions_train.csv', 'r', encoding="utf-8") as fp:
 	cl = NaiveBayesClassifier(fp, format="csv")
 	cursor.execute("SELECT Concat_ws(' ',titre, description), lien FROM petition WHERE categorie IS NULL")
 	result = cursor.fetchone()
 	while result is not None:
 		lien = result[1]
-		blob = TextBlob(result[0], classifier=cl)
+		TextBlob(result[0], classifier=cl)
 		prob_dist = cl.prob_classify(result[0])
 		categorie = prob_dist.max()
 		if (prob_dist.prob(prob_dist.max()) < 0.2):

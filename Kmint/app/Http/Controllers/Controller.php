@@ -39,7 +39,7 @@ class Controller extends BaseController
 
 			//	dans le cas où l'user n'a pas activer l'abonnement
             if( !DB::table('abonnement_petition')->where('id', '=',  \Auth::user()->id) ->exists() ){
-                $data = DB::table('petition')->orderBy('date', 'desc')->paginate($this->petition_par_page);
+                $data = DB::table('petition')->orderBy('date', 'desc')->paginate(10);
 
                 
 				return view('home')->with(compact('data', 'favoris'));
@@ -115,7 +115,7 @@ class Controller extends BaseController
 			}
 			//	Dans le cas où l'user n'est pas connecte
         } else {
-            $data = DB::table('petition')->orderBy('date', 'desc')->paginate($this->petition_par_page);
+            $data = DB::table('petition')->orderBy('date', 'desc')->paginate(10);
 
             
 			return view('home')->with(compact('data', 'favoris'));
@@ -154,7 +154,7 @@ class Controller extends BaseController
 
 	public function getCF()
 	{
-		$data = DB::table('crowdfunding')->orderBy('date', 'desc')->paginate($this->petition_par_page);
+		$data = DB::table('crowdfunding')->orderBy('date', 'desc')->paginate(10);
 		if(\Auth::check())
 			$favoris = DB::table('favoris')->where('id_users', '=', \Auth::user()->id)->get();
 
@@ -200,7 +200,7 @@ class Controller extends BaseController
 
 	//	Fonction qui renvoie dans la vue un tableau de petitions 
 	//	qui sont dans les favoris de l'utilisateur connecte
-	public static function getFavoris(){
+	public static function getFavorisPetition(){
 		if(\Auth::check() != true){
 			return redirect('/');
 		}
@@ -214,10 +214,26 @@ class Controller extends BaseController
 								->where('favoris.id_users', '=',  \Auth::user()->id)->get();
 
 	
-		return view('favoris', $favoris)->with(compact('data'));
+		return view('favorisPetition', $favoris)->with(compact('data'));
 		
 
 
+	}
+
+	public static function getFavorisCf(){
+		if(\Auth::check() != true){
+			return redirect('/');
+		}
+
+		$favoris['favoris'] = DB::table('favoris')->where('id_users', '=', \Auth::user()->id)->get();
+
+		$data = DB::table('crowdfunding')
+								->join('favoris', 'crowdfunding.lien', '=', 'favoris.lien')
+								->orderBy('favoris.date', 'desc')
+								->where('favoris.id_users', '=',  \Auth::user()->id)->get();
+
+	
+		return view('favorisCf', $favoris)->with(compact('data'));
 	}
 
 	public static function createAbonnements()

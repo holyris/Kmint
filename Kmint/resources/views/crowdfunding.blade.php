@@ -8,7 +8,7 @@
             <a href="/">
                 <button class="tablinks">Pétition</button>
             </a>
-            <a href="/crowdfunding">
+            <a href="#">
                 <button id="actuel" class="tablinks">Crowdfunding</button>
             </a>
             <form id="uploadFormm" action="{{action('Controller@getParticularCF')}}"
@@ -58,7 +58,6 @@
                                 <div id="signa">
                                 <td>Engagement : {{ $row->engagement }}%</td><br>
                                 </div>
-                                <td>Etat : {{ $row->etat }}</td>
                                 </div>
 
                                 <a href="{{ $row->lien }}" target="_blank">
@@ -123,7 +122,7 @@ $('ul.pagination').hide();
 function addFavoris(elem){
     $.ajax({
         type: 'GET',
-        url: '/ajouterFavoris',
+        url: '/favoris/ajouterFavoris',
         data: "lien="+elem.value,
         success : function() {
             
@@ -144,7 +143,7 @@ function addFavoris(elem){
 function supprFavoris(elem){
     $.ajax({
         type: 'GET',
-        url: '/supprFavoris',
+        url: '/favoris/supprFavoris',
         data: "lien="+elem.value,
         success : function() {
             

@@ -25,6 +25,7 @@ body {
 #descr {
 	width: 74%;
 	float: right;
+	padding-left : 2%;
 }
 
 #info {
@@ -45,7 +46,9 @@ body {
 	width: 25%;
 	height: auto;
 }
-
+#loading {
+	margin: auto;
+}
 #abo-left {
 	border: 2px solid black;
 	width: 50%;
@@ -66,7 +69,6 @@ body {
 	margin-bottom: 0;
 	border-radius: 4px;
 	background-color: #ffffff;
-	//text-align: center;
 }
 
 .tab .tablinks {
