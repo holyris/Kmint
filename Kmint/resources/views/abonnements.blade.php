@@ -22,7 +22,7 @@
                               
                 <div class="row">
                 <div class="col-sm-6">
-                  <div class="card" id="lol">
+                  <div>
                     <div class="card-body">
                       <input type="checkbox" id="sports" name="subscribe[]" value="sports" 
                       @if ($data->sports == 1) {{ 'checked' }} @endif >
@@ -46,7 +46,7 @@
                   </div>
                 </div>
                   <div class="col-sm-6">
-                    <div class="card">
+                    <div>
                     <div class="card-body">
                       <input type="checkbox" id="droits_homme" name="subscribe[]" value="droits_homme"
                       @if ($data->droits_homme == 1) {{ 'checked' }} @endif >
@@ -74,7 +74,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <button type="submit" id="confirmer" name="button" class="btn btn-primary">Confirmer</button>
+                <button type="submit" id="confirmer" name="button" class="btn btn-success">Confirmer</button>
             @endif
                 
             <a href="{{action('Controller@createAbonnements')}}">

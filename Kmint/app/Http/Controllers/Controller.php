@@ -13,10 +13,8 @@ use DB; //Pour inclure la database
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-
-    protected $petition_par_page = 5;
-
+	use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+	
     // Function to get data from database
     public function getPetition()
     {
@@ -315,10 +313,7 @@ class Controller extends BaseController
 
 		DB::table('favoris')->where('id_users', '=', \Auth::user()->id)->where('lien','=',$lien)->delete();
 	}
-
-
-
-
+	
 	public static function getAbonnements()
 	{
 		if(\Auth::check() != true){
