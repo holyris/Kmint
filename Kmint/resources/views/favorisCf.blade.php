@@ -1,9 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js?ver=1.7.1"></script><!-- jQuery --><script type="text/javascript" src="CHEMIN_VERS/scrollToTop/scrollToTop.js"></script><!-- The plugin file -->
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
+
+            <a id="haut" class="anchorLink">
+                <img src="{{ asset('img/icone_fleche.png')}}" alt="fleche">
+            </a>
             <div class="card">
             <div class="tab">
                 <a href="/favoris/petition">
@@ -89,6 +95,22 @@ $('ul.pagination').hide();
             }
         });
     });
+
+$(document).ready(function() {
+    function scroll_to_top(div) {
+        $(div).click(function() {
+            $('html,body').animate({scrollTop: 0}, 'slow');
+        });
+        $(window).scroll(function(){
+            if($(window).scrollTop()<500){
+                $(div).fadeOut();
+            } else{
+                $(div).fadeIn();
+            }
+        });
+    }
+    scroll_to_top("#haut");
+});
 
 //  Fonction qui supprime un favori dans la bd et qui supprime l'affichage de le petition;
 function supprFavoris(elem){

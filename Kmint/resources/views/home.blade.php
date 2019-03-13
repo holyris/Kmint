@@ -2,6 +2,7 @@
 
 @section('content')
 <?php use \App\Http\Controllers\Controller;?>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js?ver=1.7.1"></script><!-- jQuery --><script type="text/javascript" src="CHEMIN_VERS/scrollToTop/scrollToTop.js"></script><!-- The plugin file -->
 
 
 <div class="container">
@@ -33,7 +34,7 @@
                     </a>
                 </form>
             </div>
-            <a id="haut" class="anchorLink" href="#">
+            <a id="haut" class="anchorLink">
                 <img src="{{ asset('img/icone_fleche.png')}}" alt="fleche">
             </a>
             <div class="card">
@@ -141,6 +142,23 @@ $('ul.pagination').hide();
             }
         });
     });
+
+
+$(document).ready(function() {
+    function scroll_to_top(div) {
+        $(div).click(function() {
+            $('html,body').animate({scrollTop: 0}, 'slow');
+        });
+        $(window).scroll(function(){
+            if($(window).scrollTop()<500){
+                $(div).fadeOut();
+            } else{
+                $(div).fadeIn();
+            }
+        });
+    }
+    scroll_to_top("#haut");
+});
 
 //  Fonction qui ajoute un favori
 function addFavoris(elem){

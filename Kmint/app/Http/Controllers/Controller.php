@@ -139,7 +139,7 @@ class Controller extends BaseController
 			$requestedData = Input::get('requestedData');
 			$data['data']  = DB::table('petition')->where('titre', 'like', '%' . $requestedData . '%')
 												  ->orWhere('description', 'like', '%' . $requestedData . '%')
-												  ->paginate(20);
+												  ->paginate(25);
 
 			$msg = "Aucun résultat n'a été trouvé.";
 			if(\Auth::check())
@@ -183,7 +183,7 @@ class Controller extends BaseController
 			$requestedData = Input::get('requestedData');
 			$data['data']  = DB::table('crowdfunding')->where('titre', 'like', '%' . $requestedData . '%')
 												  ->orWhere('description', 'like', '%' . $requestedData . '%')
-												  ->paginate(20);
+												  ->paginate(25);
 
 			
 			$msg = "Aucun résultat n'a été trouvé.";
