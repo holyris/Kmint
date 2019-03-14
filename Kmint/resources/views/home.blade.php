@@ -47,76 +47,79 @@
                         @endif
 
                         @foreach($data as $row)
-                        <div id="petition">
-                            <tr>                               
-                                <div id="titre">
-                                    @if ($row->site == 'mesopinions')
-                                        <a class="titre_petition" href="https://www.mesopinions.com{{ $row->lien }}" target="_blank">{{ $row->titre }}</a>
-                                    @elseif ($row->site == 'petitions24')
-                                        <a class="titre_petition" href="https://www.petitions24.net{{ $row->lien }}" target="_blank">{{ $row->titre }}</a>
-                                    @endif
-                                </div>
-                                @if ($row->site == 'mesopinions')
-                                    <a  href="https://www.mesopinions.com{{ $row->lien }}" target="_blank">
-                                        <img src="https://www.mesopinions.com/public/img/{{ $row->image }}" class="img_petition" alt="{{ $row->titre }}">
-                                    </a>
-                                @elseif ($row->site == 'petitions24')
-                                    <a href="https://www.petitions24.net{{ $row->lien }}" target="_blank">
-                                        <img src="{{ $row->image }}" class="img_petition" alt="{{ $row->titre }}">
-                                    </a>
-                                @endif
-                                <div id="descr">
-                                    <p>{{ $row->description }}</p><br>
-                                </div>
 
-                                <div id="info">
-                                    @if ($row->auteur != NULL)
-                                        <td>Auteur : {{ $row->auteur }}</td><br>
-                                    @endif
-                                    <div id="signa">
-                                        <td>Signature : {{ $row->signature }}</td>
-                                    </div>
-                                </div>
-                                @if ($row->site == 'mesopinions')
-                                    <a href="https://www.mesopinions.com{{ $row->lien }}" target="_blank">
-                                        <button type="submit" name="button" class="btn btn-success">Signer</button>
-                                    </a>
-                                @elseif ($row->site == 'petitions24')
-                                    <a href="https://www.petitions24.net{{ $row->lien }}" target="_blank">
-                                        <button type="submit" name="button" class="btn btn-success">Signer</button>
-                                    </a>
-                                @endif 
-
-                                <!--    regarde si la petition est bien dans les favoris de l'utilisateur si ce dernier est connecté-->
-                                {{ $favoris_exist = false}}
-
-                                @if (\Auth::check())                           
-                                
-                                    @foreach($favoris as $fav)
-                                        @if($row->lien == $fav->lien)
-                                            <?php $favoris_exist = true ?>
+                        @if ($row->etat == 'live')
+                            <div id="petition">
+                                <tr>                               
+                                    <div id="titre">
+                                        @if ($row->site == 'mesopinions')
+                                            <a class="titre_petition" href="https://www.mesopinions.com{{ $row->lien }}" target="_blank">{{ $row->titre }}</a>
+                                        @elseif ($row->site == 'petitions24')
+                                            <a class="titre_petition" href="https://www.petitions24.net{{ $row->lien }}" target="_blank">{{ $row->titre }}</a>
                                         @endif
-                                    @endforeach
-
-                                    <button type="button" name="favori"  id="favori" value="{{ $row->lien }}"
-                                    @if ($favoris_exist==false)
-                                    onclick="addFavoris(this)" class="btn btn-success"
-                                    > Ajouter aux favoris
-                                    @else
-                                    onclick="supprFavoris(this)" class="btn btn-second"
-                                    > Enlever des favoris
+                                    </div>
+                                    @if ($row->site == 'mesopinions')
+                                        <a  href="https://www.mesopinions.com{{ $row->lien }}" target="_blank">
+                                            <img src="https://www.mesopinions.com/public/img/{{ $row->image }}" class="img_petition" alt="{{ $row->titre }}">
+                                        </a>
+                                    @elseif ($row->site == 'petitions24')
+                                        <a href="https://www.petitions24.net{{ $row->lien }}" target="_blank">
+                                            <img src="{{ $row->image }}" class="img_petition" alt="{{ $row->titre }}">
+                                        </a>
                                     @endif
+                                    <div id="descr">
+                                        <p>{{ $row->description }}</p><br>
+                                    </div>
+
+                                    <div id="info">
+                                        @if ($row->auteur != NULL)
+                                            <td>Auteur : {{ $row->auteur }}</td><br>
+                                        @endif
+                                        <div id="signa">
+                                            <td>Signature : {{ $row->signature }}</td>
+                                        </div>
+                                    </div>
+                                    @if ($row->site == 'mesopinions')
+                                        <a href="https://www.mesopinions.com{{ $row->lien }}" target="_blank">
+                                            <button type="submit" name="button" class="btn btn-success">Signer</button>
+                                        </a>
+                                    @elseif ($row->site == 'petitions24')
+                                        <a href="https://www.petitions24.net{{ $row->lien }}" target="_blank">
+                                            <button type="submit" name="button" class="btn btn-success">Signer</button>
+                                        </a>
+                                    @endif 
+
+                                    <!--    regarde si la petition est bien dans les favoris de l'utilisateur si ce dernier est connecté-->
+                                    {{ $favoris_exist = false}}
+
+                                    @if (\Auth::check())                           
                                     
-                                    </button>
+                                        @foreach($favoris as $fav)
+                                            @if($row->lien == $fav->lien)
+                                                <?php $favoris_exist = true ?>
+                                            @endif
+                                        @endforeach
 
-                                @endif
+                                        <button type="button" name="favori"  id="favori" value="{{ $row->lien }}"
+                                        @if ($favoris_exist==false)
+                                        onclick="addFavoris(this)" class="btn btn-success"
+                                        > Ajouter aux favoris
+                                        @else
+                                        onclick="supprFavoris(this)" class="btn btn-second"
+                                        > Enlever des favoris
+                                        @endif
+                                        
+                                        </button>
 
+                                    @endif
+
+
+                                        
 
                                     
-
-                                
-                            </tr><br><br>
-                        </div>    
+                                </tr><br><br>
+                            </div> 
+                        @endif   
                         @endforeach
                         {!! $data->links() !!}
                     </div>

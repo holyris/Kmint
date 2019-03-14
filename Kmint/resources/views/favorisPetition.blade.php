@@ -32,6 +32,7 @@
                     <div class="infinite-scroll">
                         <div class="card-body">
                         @foreach($data as $row)
+                        @if ($row->etat == 'live')
                         <div id="{{ $row->lien }}" >
                             <tr>                               
                                 <div id="titre">
@@ -93,6 +94,7 @@
 
                             </tr><br><br><br>
                         </div>    
+                        @endif
                         @endforeach
 
                     </div>
